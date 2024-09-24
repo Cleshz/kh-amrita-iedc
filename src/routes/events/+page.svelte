@@ -1,6 +1,6 @@
 <script lang="ts">
 	//@ts-nocheck
-	// import FaMoon from 'svelte-icons/fa/FaMoon.svelte';
+	import FaMoon from 'svelte-icons/fa/FaMoon.svelte';
 	import TiArrowBack from 'svelte-icons/ti/TiArrowBack.svelte';
 	import EventCard from '$lib/EventCard.svelte';
 	import { Modals } from 'svelte-modals';
@@ -67,13 +67,13 @@
 					</li>
 					<li>
 						<button class="h-7" on:click={() => (userTheme = !userTheme)}>
-							<!-- <FaMoon /> -->
+							<FaMoon />
 						</button>
 					</li>
 				</ul>
 			</div>
 			<button class="absolute right-24 h-7 md:hidden" on:click={() => (userTheme = !userTheme)}>
-				<!-- <FaMoon /> -->
+				<FaMoon />
 			</button>
 		</div>
 	</nav>
