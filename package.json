@@ -37,6 +37,7 @@
 	"dependencies": {
 		"svelte-carousel": "^1.0.25",
 		"svelte-icons": "^2.1.0",
-		"svelte-modals": "^1.3.0"
+		"svelte-modals": "^1.3.0",
+		"svelte-youtube-embed": "^0.3.0"
 	}
 }
