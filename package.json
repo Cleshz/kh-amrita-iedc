@@ -31,5 +31,9 @@
 		"typescript-eslint": "^8.0.0",
 		"vite": "^5.0.3"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"svelte-carousel": "^1.0.25",
+		"svelte-modals": "^1.3.0"
+	}
 }
