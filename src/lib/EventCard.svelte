@@ -2,7 +2,7 @@
 	export let name: string;
 	export let url: string;
 	export let details: string;
-	export let running: boolean = false;
+	export let status: string='Ended';
 
 </script>
 
@@ -30,15 +30,15 @@
 					</div>
 				</div>
 				<h1 class="mx-2 pb-2 font-bold text-black dark:text-white">{details}</h1>
-				{#if running}
+				<!-- {#if status!='Join'} -->
 					<small class="badge m-auto">
 						<button
 							class=" transform rounded-full border-2 border-black dark:border-white bg-transparent px-8 py-2 text-lg font-bold text-black dark:text-white shadow-lg transition-transform hover:scale-105 hover:border-green-600 hover:shadow-2xl hover:shadow-green-500/50 focus:outline-none"
 						>
-							Join
+							{status}
 						</button>
 					</small>
-				{:else}
+				<!-- {:else}
 				<small class="badge m-auto">
 					<button
 						class=" transform rounded-full border-2 border-black dark:border-white bg-transparent px-8 py-2 text-lg font-bold text-black dark:text-white shadow-lg transition-transform hover:scale-105 hover:border-green-600 hover:shadow-2xl hover:shadow-green-500/50 focus:outline-none"
@@ -46,7 +46,7 @@
 						Ended
 					</button>
 				</small>
-				{/if}
+				{/if} -->
 			</div>
 		</div>
 	</div>

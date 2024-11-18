@@ -81,6 +81,12 @@
 		PAST EVENTS
 	</h1>
 	<div class="mb-40 mt-10 flex flex-wrap justify-center gap-6 pb-6">
+		<EventCard
+				name="Amrita Bit 7.0"
+				url="/assets/Posters/AmritaBit-7.png"
+				status='Spectate'
+				details="🏆 We warmly invite you to Amrita Bit 7.0 (project exhibition), where students will showcase their innovative ideas, creative solutions, and hard work. Come explore a diverse range of projects, interact with the creators, and be inspired by their dedication and ingenuity!"
+			/>
 		<button
 			on:click={() =>
 				openModal(EventModal, {
