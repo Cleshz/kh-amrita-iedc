@@ -82,12 +82,12 @@
 	</h1>
 	<div class="mb-40 mt-10 flex flex-wrap justify-center gap-6 pb-6">
 		<EventCard
-				name="Amrita Bit 7.0"
-				url="/assets/Posters/AmritaBit-7.png"
-				status='Spectate'
-				details="🏆 We warmly invite you to Amrita Bit 7.0 (project exhibition), where students will showcase their innovative ideas, creative solutions, and hard work. Come explore a diverse range of projects, interact with the creators, and be inspired by their dedication and ingenuity!"
-			/>
-		<button
+			name="Amrita Bit 7.0"
+			url="/assets/Posters/AmritaBit-7.png"
+			status="Spectate"
+			details="🏆 We warmly invite you to Amrita Bit 7.0 (project exhibition), where students will showcase their innovative ideas, creative solutions, and hard work. Come explore a diverse range of projects, interact with the creators, and be inspired by their dedication and ingenuity!"
+		/>
+		<!-- <button
 			on:click={() =>
 				openModal(EventModal, {
 					title: 'AI Reinforced Deep Learning Workshop',
@@ -104,13 +104,13 @@
 					fee: '₹100',
 					contacts: 'Vaishnav - +91 6238996266. Hrishikesh Nair - +91 7510752549.'
 				})}
-		>
-			<EventCard
-				name="AI Reinforced Deep Learning Workshop"
-				url="/assets/Posters/deeplearning.jpg"
-				details="🏆 We’re thrilled to announce the AI Reinforced Deep Learning Workshop, a hands-on, full-day event on 24th September, starting at 9:30 AM in Lab 6, A Block!"
-			/>
-		</button>
+		> -->
+		<EventCard
+			name="AI Reinforced Deep Learning Workshop"
+			url="/assets/Posters/deeplearning.jpg"
+			details="🏆 We’re thrilled to announce the AI Reinforced Deep Learning Workshop, a hands-on, full-day event on 24th September, starting at 9:30 AM in Lab 6, A Block!"
+		/>
+		<!-- </button> -->
 		<EventCard
 			name="Entrepreneurship And Financial Independence"
 			url="/assets/Posters/Entrepreneurship.jpg"
@@ -126,11 +126,7 @@
 			url="/assets/Posters/GenerativeAI.jpg"
 			details="🏆 Todo"
 		/>
-		<EventCard
-			name="InspireX"
-			url="/assets/Posters/InspireX.jpg"
-			details="🏆 Todo"
-		/>
+		<EventCard name="InspireX" url="/assets/Posters/InspireX.jpg" details="🏆 Todo" />
 		<EventCard
 			name="Programming with GPU"
 			url="/assets/Posters/ProgrammingGpu.jpg"
@@ -231,27 +227,27 @@
 		<EventCard
 			name="Biz Blitz"
 			url="/assets/Posters/bizblitz.jpg"
-			details="🎖️Think outside the box and inside the market! Join us for the Department of Computer Science & IT's Biz Blitz, where participants unleash their creativity to market a range of products like never before. From innovative campaigns to captivating strategies, show us your marketing magic and seize the spotlight!"
+			details="🎖️Think outside the box and inside the market! Join us for the Department of Computer Science & IT's Biz Blitz, where participants unleash their creativity to market a range of products like never before."
 		/>
 		<EventCard
 			name="E-Football"
 			url="/assets/Posters/efootball.jpg"
-			details="🎖️Get ready to unleash your inner athlete in our electrifying e-football tournament, Hosted by the Department of Computer Science & IT. Dive into the digital arena as you compete in thrilling matches, showcasing your skills and strategic prowess. Every goal counts as you race towards victory and claim your place among the champions. Register now and join us in the journey towards e-football mastery."
+			details="🎖️Get ready to unleash your inner athlete in our electrifying e-football tournament, Hosted by the Department of Computer Science & IT. Dive into the digital arena as you compete in thrilling matches, showcasing your skills and strategic prowess."
 		/>
 		<EventCard
 			name="Electro Forge"
 			url="/assets/Posters/electroforge.jpg"
-			details="💡Calling all students from every department! Are you ready to unleash your inner hardware wizard and forge something extraordinary? Join us for Electro Forge, an electrifying hardware assembly competition proudly brought to you by the Department of Computer Science and IT. Get ready to roll up your sleeves, dive into the world of circuits and components, and let your creativity run wild !"
+			details="💡Calling all students from every department! Are you ready to unleash your inner hardware wizard and forge something extraordinary? Join us for Electro Forge, an electrifying hardware assembly competition proudly brought to you by the Department of Computer Science and IT."
 		/>
 		<EventCard
 			name="Enigma"
 			url="/assets/Posters/enigma.jpg"
-			details="🏆 Gear up for a thrilling Logo Guess challenge, Hosted by the Department of Computer Science & IT. Dive into the world of branding and design as you decipher iconic logos. Every guess counts as you race towards victory in this ultimate test of visual recognition. Register now and join us in the battle for logo mastery!"
+			details="🏆 Gear up for a thrilling Logo Guess challenge, Hosted by the Department of Computer Science & IT. Dive into the world of branding and design as you decipher iconic logos. Every guess counts as you race towards victory in this ultimate test of visual recognition."
 		/>
 		<EventCard
 			name="Logo Design"
 			url="/assets/Posters/logodesign.jpg"
-			details="🏆 Get ready to unleash your creativity in our exhilarating Logo Design challenge, Hosted by the Department of Computer Science & IT. Dive into the world of branding and design as you craft iconic logos from scratch. Every stroke of your digital pen counts as you race towards the pinnacle of design excellence. Register now and join us in the journey towards logo mastery!"
+			details="🏆 Get ready to unleash your creativity in our exhilarating Logo Design challenge, Hosted by the Department of Computer Science & IT. Dive into the world of branding and design as you craft iconic logos from scratch"
 		/>
 		<EventCard
 			name="NerdScript 2.0"
@@ -261,7 +257,7 @@
 		<EventCard
 			name="Photo Scavenger"
 			url="/assets/Posters/photoscav.jpg"
-			details="🏆 Get ready to unleash your inner explorer in our exhilarating Photo Scavenger Hunt adventure, Hosted by the Department of Computer Science & IT. Dive into the world of photography as you capture moments and stories through your lens. Every snap counts as you race towards uncovering hidden gems and showcasing your creative prowess. Register now and join us in the journey towards photographic mastery!"
+			details="🏆 Get ready to unleash your inner explorer in our exhilarating Photo Scavenger Hunt adventure, Hosted by the Department of Computer Science & IT. Dive into the world of photography as you capture moments and stories through your lens."
 		/>
 		<EventCard
 			name="Swiftknot Sprint"
@@ -271,12 +267,12 @@
 		<EventCard
 			name="Treasure Hunt"
 			url="/assets/Posters/treasurehunt.jpg"
-			details="🎖️ Embark on a quest for hidden treasures in our thrilling Treasure Hunt event, hosted by the *Department of Computer Science & IT*. Challenge your wits, solve mind-bending puzzles, and conquer exciting tasks in this ultimate adventure. Unleash your inner detective and race against time to uncover mysteries waiting to be solved!"
+			details="🎖️ Embark on a quest for hidden treasures in our thrilling Treasure Hunt event, hosted by the *Department of Computer Science & IT*. Challenge your wits, solve mind-bending puzzles, and conquer exciting tasks in this ultimate adventure."
 		/>
 		<EventCard
 			name="Web Hackathon"
 			url="/assets/Posters/webhackathon.jpg"
-			details="🌐 Join the Department of Computer Science & IT's Web Hackathon for an exhilarating journey! Unleash your creativity as you develop web or mobile apps with database connectivity. With a themed challenge that sparks innovation, this event is your chance to showcase your skills and craft solutions that make a difference. Are you ready to code your way to success?"
+			details="🌐 Join the Department of Computer Science & IT's Web Hackathon for an exhilarating journey! Unleash your creativity as you develop web or mobile apps with database connectivity."
 		/>
 		<EventCard
 			name="Xonotic"
