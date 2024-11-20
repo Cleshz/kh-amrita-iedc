@@ -84,8 +84,12 @@
 		<EventCard
 			name="Amrita Bit 7.0"
 			url="/assets/Posters/AmritaBit-7.png"
-			status="Spectate"
 			details="🏆 We warmly invite you to Amrita Bit 7.0 (project exhibition), where students will showcase their innovative ideas, creative solutions, and hard work. Come explore a diverse range of projects, interact with the creators, and be inspired by their dedication and ingenuity!"
+		/>
+		<EventCard
+			name="Bits & Bolts"
+			url="/assets/Posters/Bits&Bolts.jpeg"
+			details="🏆 Join us for an engaging hardware workshop where you'll get a closer look at the inner workings of a physical computer—discover how each component comes together to power the technology we use every day!"
 		/>
 		<!-- <button
 			on:click={() =>
