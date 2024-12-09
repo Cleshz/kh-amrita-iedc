@@ -1,15 +1,16 @@
 <script lang="ts">
-	let userTheme: boolean = localStorage.getItem('theme') === 'dark';
-	$: {
-		const htmlElement = document.documentElement;
-		if (userTheme) {
-			htmlElement.classList.add('dark');
-			localStorage.setItem('theme', 'dark');
-		} else {
-			htmlElement.classList.remove('dark');
-			localStorage.setItem('theme', 'light');
-		}
-	}
+	export let userTheme: boolean;
+	// localStorage.getItem('theme') === 'dark';
+	// $: {
+	// 	const htmlElement = document.documentElement;
+	// 	if (userTheme) {
+	// 		htmlElement.classList.add('dark');
+	// 		localStorage.setItem('theme', 'dark');
+	// 	} else {
+	// 		htmlElement.classList.remove('dark');
+	// 		localStorage.setItem('theme', 'light');
+	// 	}
+	// }
 </script>
 
 <h1
@@ -20,7 +21,7 @@
 <div class="mt-20 flex grid-cols-2 flex-col md:grid">
 	<div class="grid grid-cols-3 text-center text-2xl font-bold max-lg:grid-cols-none md:text-4xl">
 		<div class="relative max-lg:hidden">
-			<div class="absolute -right-10 top-36 w-52">
+			<div class="absolute -right-10 top-36 w-52 duration-500">
 				{#if userTheme}
 					<img src="/assets/img/iedcDark.png" alt="" />
 				{:else}
@@ -49,7 +50,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="mx-5 mt-3 text-justify font-bold md:mr-40">
+	<div class="mx-5 mt-8 text-justify font-bold md:mr-40">
 		<h1>
 			The Annual Tech Fest at Amrita Vishwa Vidyapeetham, Kochi is a premier event organized by the
 			Department of Computer Science & Information Technology in collaboration with the <span

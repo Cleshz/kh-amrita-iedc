@@ -17,18 +17,43 @@
 	import Contacts from '$lib/Contacts.svelte';
 	import IoMdCall from 'svelte-icons/io/IoMdCall.svelte';
 	import { navigating } from '$app/stores';
+	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 
 	let placement: string = 'bottom';
 
-	let userTheme: boolean = localStorage.getItem('theme') === 'dark';
-	$: {
-		const htmlElement = document.documentElement;
-		if (userTheme) {
-			htmlElement.classList.add('dark');
-			localStorage.setItem('theme', 'dark');
-		} else {
-			htmlElement.classList.remove('dark');
-			localStorage.setItem('theme', 'light');
+	let userTheme = 5;
+	let isThemeReady = false;
+	if (browser) {
+		userTheme = localStorage.getItem('theme') === 'dark';
+	}
+	onMount(() => {
+		if (browser) {
+			const storedTheme = localStorage.getItem('theme');
+			userTheme = storedTheme === 'dark';
+
+			const htmlElement = document.documentElement;
+			if (userTheme) {
+				htmlElement.classList.add('dark');
+				localStorage.setItem('theme', 'dark');
+			} else {
+				htmlElement.classList.remove('dark');
+				localStorage.setItem('theme', 'light');
+			}
+			isThemeReady = true;
+		}
+	});
+	function toggleTheme() {
+		if (browser) {
+			userTheme = !userTheme;
+			const htmlElement = document.documentElement;
+			if (userTheme) {
+				htmlElement.classList.add('dark');
+				localStorage.setItem('theme', 'dark');
+			} else {
+				htmlElement.classList.remove('dark');
+				localStorage.setItem('theme', 'light');
+			}
 		}
 	}
 
@@ -39,21 +64,21 @@
 	}
 </script>
 
-<body class="h-screen overflow-y-scroll dark:bg-neutral-900 dark:text-gray-300">
+<body class="h-screen overflow-y-scroll bg-white dark:bg-neutral-900 dark:text-gray-300">
 	<nav class="sticky top-0 z-50 h-20 border-gray-200 bg-white dark:bg-neutral-900">
 		<div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4 pt-5">
 			<a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
 				<img class="mt-2 h-14" src="/assets/img/asaslogo.png" alt="ASAS Logo" />
 			</a>
-
-			<button class="absolute right-5 mt-1 items-center hover:text-white md:hidden">
-				<Button id="placement-bottom">
-					<div class="h-12 text-gray-500 outline-none">
-						<IoMdMenu />
-					</div>
-				</Button>
-			</button>
-
+			{#if userTheme!=5}
+				<button class="absolute right-5 mt-1 items-center hover:text-white md:hidden">
+					<Button id="placement-bottom">
+						<div class="h-12 text-gray-500 outline-none">
+							<IoMdMenu />
+						</div>
+					</Button>
+				</button>
+			{/if}
 			<div class="hidden w-full md:block md:w-auto" id="navbar-default">
 				<ul
 					class="mt-4 flex flex-col rounded-lg border p-4 text-lg font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0 rtl:space-x-reverse"
@@ -78,17 +103,18 @@
 						<a href="/events" class="nav-link">Events</a>
 					</li>
 					<li>
-						<button class="h-7" on:click={() => (userTheme = !userTheme)}>
+						<button class="h-7" on:click={toggleTheme}>
 							<FaMoon />
 						</button>
 					</li>
 				</ul>
 			</div>
-			<button class="absolute right-24 h-7 md:hidden" on:click={() => (userTheme = !userTheme)}>
+			<button class="absolute right-24 h-7 md:hidden" on:click={toggleTheme}>
 				<FaMoon />
 			</button>
 		</div>
 	</nav>
+
 	<Popover
 		triggeredBy="#placement-bottom"
 		{placement}
@@ -125,7 +151,9 @@
 		class="sec -mt-24 grid h-screen grid-cols-3 items-center justify-center pb-20 pt-20 max-lg:grid-cols-none"
 	>
 		<div class="mx-10 max-lg:hidden">
-			<ImageCarousel />
+			{#await Promise.resolve() then _}
+				<ImageCarousel />
+			{/await}
 		</div>
 		<div class=" pb-5">
 			<img class="m-auto w-80" src="/assets/img/iedc_asas_2.png" alt="" loading="eager" />
@@ -148,7 +176,9 @@
 			</div>
 		</div>
 		<div class="mx-10 max-lg:hidden">
-			<ImageCarousel />
+			{#await Promise.resolve() then _}
+				<ImageCarousel />
+			{/await}
 		</div>
 	</section>
 
@@ -158,10 +188,10 @@
 
 	<section id="Savishkaara" class="sec h-screen pt-20">
 		{#key userTheme}
-		<Savishkaara/>
+			<Savishkaara {userTheme} />
 		{/key}
 	</section>
-	<section id="Team" class="pt-20">
+	<section id="Team" class="pt-60">
 		<Team />
 	</section>
 	<footer id="Contacts" class="sec h-screen pt-20">
@@ -178,7 +208,7 @@
 
 	body,
 	nav {
-		@apply transition-colors duration-300;
+		@apply transition-colors duration-500;
 	}
 
 	.nav-link {
