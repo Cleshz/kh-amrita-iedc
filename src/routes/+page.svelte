@@ -70,7 +70,7 @@
 			<a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
 				<img class="mt-2 h-14" src="/assets/img/asaslogo.png" alt="ASAS Logo" />
 			</a>
-			{#if userTheme!=5}
+			{#if userTheme != 5}
 				<button class="absolute right-5 mt-1 items-center hover:text-white md:hidden">
 					<Button id="placement-bottom">
 						<div class="h-12 text-gray-500 outline-none">
@@ -145,58 +145,59 @@
 			</li>
 		</ul>
 	</Popover>
-
-	<section
-		id="Home"
-		class="sec -mt-24 grid h-screen grid-cols-3 items-center justify-center pb-20 pt-20 max-lg:grid-cols-none"
-	>
-		<div class="mx-10 max-lg:hidden">
-			{#await Promise.resolve() then _}
-				<ImageCarousel />
-			{/await}
-		</div>
-		<div class=" pb-5">
-			<img class="m-auto w-80" src="/assets/img/iedc_asas_2.png" alt="" loading="eager" />
-			<h1 class="text-center text-2xl font-bold md:text-4xl dark:text-violet-800">
-				INNOVATION AND<br />
-				ENTREPRENEURSHIP<br />
-				DEVELOPMENT CENTRE
-			</h1>
-			<h1 class="mt-5 text-center font-bold md:text-xl">
-				AMRITA VISHWA VIDHYAPEETHAM<br />KOCHI
-			</h1>
-			<div class="p-2 text-center">
-				<a href="https://innovate.startupmission.in/joinus/" target="_blank">
-					{#if userTheme}
-						<button class="btn btnDark">Join Today!</button>
-					{:else}
-						<button class="btn btnLight">Join Today!</button>
-					{/if}
-				</a>
+	<article>
+		<section
+			id="Home"
+			class="sec -mt-24 grid h-screen grid-cols-3 items-center justify-center pb-20 pt-20 max-lg:grid-cols-none"
+		>
+			<div class="mx-10 max-lg:hidden">
+				{#await Promise.resolve() then _}
+					<ImageCarousel />
+				{/await}
 			</div>
-		</div>
-		<div class="mx-10 max-lg:hidden">
-			{#await Promise.resolve() then _}
-				<ImageCarousel />
-			{/await}
-		</div>
-	</section>
+			<div class=" pb-5">
+				<img class="m-auto w-80" src="/assets/img/iedc_asas_2.png" alt="" loading="eager" />
+				<h1 class="text-center text-2xl font-bold md:text-4xl dark:text-violet-800">
+					INNOVATION AND<br />
+					ENTREPRENEURSHIP<br />
+					DEVELOPMENT CENTRE
+				</h1>
+				<h1 class="mt-5 text-center font-bold md:text-xl">
+					AMRITA VISHWA VIDHYAPEETHAM<br />KOCHI
+				</h1>
+				<div class="p-2 text-center">
+					<a href="https://innovate.startupmission.in/joinus/" target="_blank">
+						{#if userTheme}
+							<button class="btn btnDark">Join Today!</button>
+						{:else}
+							<button class="btn btnLight">Join Today!</button>
+						{/if}
+					</a>
+				</div>
+			</div>
+			<div class="mx-10 max-lg:hidden">
+				{#await Promise.resolve() then _}
+					<ImageCarousel />
+				{/await}
+			</div>
+		</section>
 
-	<section id="About" class="sec h-screen pt-20">
-		<About />
-	</section>
+		<section id="About" class="sec h-screen pt-20">
+			<About />
+		</section>
 
-	<section id="Savishkaara" class="sec h-screen pt-20">
-		{#key userTheme}
-			<Savishkaara {userTheme} />
-		{/key}
-	</section>
-	<section id="Team" class="pt-60">
-		<Team />
-	</section>
-	<footer id="Contacts" class="sec h-screen pt-20">
-		<Contacts />
-	</footer>
+		<section id="Savishkaara" class="sec h-screen pt-20">
+			{#key userTheme}
+				<Savishkaara {userTheme} />
+			{/key}
+		</section>
+		<section id="Team" class="pt-60">
+			<Team />
+		</section>
+		<footer id="Contacts" class="sec h-screen pt-20">
+			<Contacts />
+		</footer>
+	</article>
 </body>
 
 <style>
