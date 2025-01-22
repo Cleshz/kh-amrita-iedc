@@ -82,6 +82,12 @@
 	</h1>
 	<div class="mb-40 mt-10 flex flex-wrap justify-center gap-6 pb-6">
 		<EventCard
+			name="Major Project Orientation"
+			url="/assets/Posters/MajorProjectOrientation.jpeg"
+			details="🏆 Im not getting paid enuf for these details😭"
+			status="Tomorrow 💀"
+		/>
+		<EventCard
 			name="Amrita Bit 7.0"
 			url="/assets/Posters/AmritaBit-7.png"
 			details="🏆 We warmly invite you to Amrita Bit 7.0 (project exhibition), where students will showcase their innovative ideas, creative solutions, and hard work. Come explore a diverse range of projects, interact with the creators, and be inspired by their dedication and ingenuity!"
