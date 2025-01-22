@@ -102,7 +102,7 @@
 		display: block;
 		width: 160px;
 		height: 160%;
-		background: linear-gradient(
+		/* background: linear-gradient(
 			90deg,
 			transparent,
 			#ea1136,
@@ -111,8 +111,8 @@
 			#7605e0,
 			#1210d9,
 			transparent
-		);
-		animation: rotation_481 5000ms infinite linear;
+		); */
+		/* animation: rotation_481 5000ms infinite linear; */
 	}
 
 	.back-content {

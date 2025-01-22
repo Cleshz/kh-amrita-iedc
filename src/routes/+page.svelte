@@ -65,20 +65,20 @@
 </script>
 
 <body class="h-screen overflow-y-scroll bg-white dark:bg-neutral-900 dark:text-gray-300">
-	<nav class="sticky top-0 z-50 h-20 border-gray-200 bg-white dark:bg-neutral-900">
+	<nav class="sticky top-0 z-50 h-20 border-gray-200 bg-inherit dark:bg-inherit">
 		<div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4 pt-5">
 			<a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
 				<img class="mt-2 h-14" src="/assets/img/asaslogo.png" alt="ASAS Logo" />
 			</a>
-			{#if userTheme != 5}
-				<button class="-mr-10  mt-1 items-center hover:text-white md:hidden">
+			<!-- {#if userTheme != 5} -->
+				<button class="absolute right-10  mt-1 items-center hover:text-white md:hidden">
 					<Button id="placement-bottom">
 						<div class="h-12 text-gray-500 outline-none">
 							<IoMdMenu />
 						</div>
 					</Button>
 				</button>
-			{/if}
+			<!-- {/if} -->
 			<div class="hidden w-full md:block md:w-auto" id="navbar-default">
 				<ul
 					class="mt-4 flex flex-col rounded-lg border p-4 text-lg font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0 rtl:space-x-reverse"
@@ -109,7 +109,7 @@
 					</li>
 				</ul>
 			</div>
-			<button class="absolute right-0 h-8 md:hidden " on:click={toggleTheme}>
+			<button class="absolute right-5 h-7 md:hidden" on:click={toggleTheme}>
 				<FaMoon />
 			</button>
 		</div>
@@ -207,8 +207,7 @@
 		padding: 1rem;
 	}
 
-	body,
-	nav {
+	body {
 		@apply transition-colors duration-500;
 	}
 
