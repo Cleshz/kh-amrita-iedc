@@ -109,7 +109,7 @@
 					</li>
 				</ul>
 			</div>
-			<button class="mr-5 h-8 md:hidden " on:click={toggleTheme}>
+			<button class="absolute right-0 h-8 md:hidden " on:click={toggleTheme}>
 				<FaMoon />
 			</button>
 		</div>
