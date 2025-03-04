@@ -83,7 +83,6 @@
 			name="Major Project Orientation"
 			url="/assets/Posters/MajorProjectOrientation.jpeg"
 			details="🏆 Im not getting paid enuf for these details😭"
-			status="Tomorrow 💀"
 		/>
 		<EventCard
 			name="Amrita Bit 7.0"

@@ -39,9 +39,10 @@
 		/>
 		<TeamCard
 			name="Sabhyam Mishra"
-			role="President"
+			role="EXPIRED💀💀"
 			phone="+91 9633149771"
 			mail="iedc@kh.amrita.edu"
+			expired
 		/>
 		<TeamCard
 			name="Jasmin T J"
