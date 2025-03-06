@@ -33,9 +33,10 @@
 		/>
 		<TeamCard
 			name="Apurva Sunil"
-			role="Chief Operating Officer"
+			role="EXPIRED"
 			phone="+91 6238191357"
-			mail="cooiedc@kh.amrita.edu"
+			mail="iedc@kh.amrita.edu"
+			expired
 		/>
 		<TeamCard
 			name="Sabhyam Mishra"
@@ -67,12 +68,14 @@
 			role="Chief Marketing Officer"
 			phone="+91 7736190622"
 			mail="cmoiedc@kh.amrita.edu"
+			expired
 		/>
 		<TeamCard
 			name="Natasha M H"
 			role="Public Relations Officer"
 			phone="+91 7907533185"
 			mail="proiedc@kh.amrita.edu"
+			expired
 		/>
 		<TeamCard
 			name="Treesa Joseph Mampilly"
@@ -82,9 +85,9 @@
 		/>
 		<TeamCard
 			name="Hrishikesh Nair"
-			role="Research and Innovation Officer"
+			role="Chief Operating Officer"
 			phone="+91 7510752549"
-			mail="iedc@kh.amrita.edu"
+			mail="cooiedc@kh.amrita.edu"
 		/>
 	</div>
 </div>
