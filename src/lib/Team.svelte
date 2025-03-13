@@ -36,14 +36,13 @@
 			role="EXPIRED"
 			phone="+91 6238191357"
 			mail="iedc@kh.amrita.edu"
-			expired
 		/>
 		<TeamCard
 			name="Sabhyam Mishra"
 			role="EXPIRED💀💀"
 			phone="+91 9633149771"
 			mail="iedc@kh.amrita.edu"
-			expired
+			
 		/>
 		<TeamCard
 			name="Jasmin T J"
@@ -68,14 +67,13 @@
 			role="Chief Marketing Officer"
 			phone="+91 7736190622"
 			mail="cmoiedc@kh.amrita.edu"
-			expired
 		/>
 		<TeamCard
 			name="Natasha M H"
 			role="Public Relations Officer"
 			phone="+91 7907533185"
 			mail="proiedc@kh.amrita.edu"
-			expired
+
 		/>
 		<TeamCard
 			name="Treesa Joseph Mampilly"
