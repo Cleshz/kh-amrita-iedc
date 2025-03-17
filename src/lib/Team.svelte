@@ -31,15 +31,15 @@
 			phone="+91 6238996266"
 			mail="ceoiedc@kh.amrita.edu"
 		/>
-		<TeamCard
+		<!-- <TeamCard
 			name="Apurva Sunil"
-			role="EXPIRED"
+			role=""
 			phone="+91 6238191357"
 			mail="iedc@kh.amrita.edu"
-		/>
+		/> -->
 		<TeamCard
 			name="Sabhyam Mishra"
-			role="EXPIRED💀💀"
+			role="President"
 			phone="+91 9633149771"
 			mail="iedc@kh.amrita.edu"
 			
