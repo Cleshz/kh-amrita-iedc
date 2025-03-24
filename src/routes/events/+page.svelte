@@ -7,6 +7,7 @@
 	import { openModal } from 'svelte-modals';
 	import EventModal from '$lib/EventModal.svelte';
 	import { Button } from 'flowbite-svelte';
+	import Navbar from '$lib/Navbar.svelte';
 	let userTheme: boolean = localStorage.getItem('theme') === 'dark';
 	$: {
 		const htmlElement = document.documentElement;
@@ -21,65 +22,7 @@
 </script>
 
 <body class="h-screen overflow-y-scroll bg-white dark:bg-neutral-900 dark:text-gray-300">
-	<nav class="sticky top-0 z-50 h-20 border-gray-200 bg-inherit dark:bg-inherit max-lg:px-6">
-		<!-- <div class="relative w-full flex items-center md:justify-around justify-between pt-5 px-10 "> -->
-		 <div class="flex md:justify-between md:px-20 items-center mt-4 w-full">
-			<a href="/" class="mt-2">
-				<img class="h-14 w-36 object-contain  " src="/assets/img/asaslogo.png" alt="ASAS Logo" />
-			</a>
-			<!-- <div class=" absolute right-6">
-				<button class="w-8 md:hidden absolute right-10">
-					<FaMoon />
-				</button>
-				<a href="/">
-					<button class="w-12 -mt-2">
-						<TiArrowBack />
-					</button>
-				</a>
-			</div> -->
-			<div class="flex mt-4 absolute right-6">
-				<button class="w-8 md:hidden absolute right-10" on:click={() => (userTheme = !userTheme)}>
-					<FaMoon />
-				</button>
-				<button>
-					<a href="/">
-					<Button id="placement-bottom" class="-mt-3 md:hidden w-14">
-						<div class="w-14 text-gray-500 outline-none">
-							<TiArrowBack/>
-						</div>
-					</Button>
-				</a>
-				</button>
-			</div>
-		
-			<!-- Navbar Links -->
-			<div class="hidden w-full md:block md:w-auto" id="navbar-default">
-				<ul class="mt-4 flex flex-col rounded-lg border p-4 text-lg font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0 rtl:space-x-reverse">
-					<li>
-						<a href="#Home" class="block rounded bg-blue-700 px-3 py-2 text-white md:bg-transparent md:p-0 md:text-blue-700 dark:text-white md:dark:text-blue-500" aria-current="page">
-							Home
-						</a>
-					</li>
-					<li><a href="/#About" class="nav-link">About</a></li>
-					<li><a href="/#Savishkaara" class="nav-link">Savishkaara</a></li>
-					<li><a href="/#Team" class="nav-link">Team</a></li>
-					<li><a href="/events" class="nav-link">Events</a></li>
-					<li>
-						<button class="h-7" on:click={() => (userTheme = !userTheme)}>
-							<FaMoon />
-						</button>
-					</li>
-				</ul>
-			</div>
-		
-			<!-- Night Mode Toggle -->
-			<!-- <button class=" h-7 md:hidden" on:click={toggleTheme}>
-				<FaMoon />
-			</button> -->
-		</div>
-		
-		
-	</nav>
+	<Navbar />
 	<h1 class="text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700">
 		PAST EVENTS
 	</h1>
@@ -229,7 +172,7 @@
 </body>
 
 <style>
-	body{
+	body {
 		@apply transition-colors duration-500;
 	}
 	.nav-link {
