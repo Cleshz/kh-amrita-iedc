@@ -60,9 +60,9 @@
 							Home
 						</a>
 					</li>
-					<li><a href="#About" class="nav-link">About</a></li>
-					<li><a href="#Savishkaara" class="nav-link">Savishkaara</a></li>
-					<li><a href="#Team" class="nav-link">Team</a></li>
+					<li><a href="/#About" class="nav-link">About</a></li>
+					<li><a href="/#Savishkaara" class="nav-link">Savishkaara</a></li>
+					<li><a href="/#Team" class="nav-link">Team</a></li>
 					<li><a href="/events" class="nav-link">Events</a></li>
 					<li>
 						<button class="h-7" on:click={() => (userTheme = !userTheme)}>
@@ -87,7 +87,7 @@
 		<EventCard
 			name="Major Project Orientation"
 			url="/assets/Posters/MajorProjectOrientation.jpeg"
-			details="🏆 Im not getting paid enuf for these details😭"
+			details="🏆 todo😭"
 		/>
 		<EventCard
 			name="Amrita Bit 7.0"

@@ -35,7 +35,7 @@
 			name="Treesa Joseph Mampilly"
 			role="Student Lead II"
 			phone="+91 9188732355"
-			mail="ccoiedc@kh.amrita.edu"
+			mail="iedc@kh.amrita.edu"
 		/>
 		<TeamCard
 			name="Jasmin T J"
@@ -65,7 +65,7 @@
 			name="Achyuth N"
 			role="Creative Lead"
 			phone="+91 7994833395"
-			mail="iedc@kh.amrita.edu"
+			mail="ccoiedc@kh.amrita.edu"
 		/>
 		<TeamCard
 			name="Aswathi Rakesh"
