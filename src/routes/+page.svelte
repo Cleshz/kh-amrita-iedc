@@ -72,7 +72,7 @@
 				<img class="h-14 w-36 object-contain mt-2 " src="/assets/img/asaslogo.png" alt="ASAS Logo" />
 			</a>
 			<div class="flex mt-4 absolute right-6">
-				<button class="h-8 md:hidden" on:click={toggleTheme}>
+				<button class="w-8 md:hidden absolute right-10" on:click={toggleTheme}>
 					<FaMoon />
 				</button>
 				<button>
