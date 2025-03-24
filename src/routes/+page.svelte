@@ -67,11 +67,11 @@
 <body class="h-screen overflow-y-scroll bg-white dark:bg-neutral-900 dark:text-gray-300">
 	<nav class="sticky top-0 z-50 h-20 border-gray-200 bg-inherit dark:bg-inherit max-lg:px-6">
 		<!-- <div class="relative w-full flex items-center md:justify-around justify-between pt-5 px-10 "> -->
-		 <div class="flex justify-between md:px-32 items-center mt-4 ">
+		 <div class="flex md:justify-between md:px-20 items-center mt-4 w-full">
 			<a href="/" class="">
-				<img class="h-14 w-36 object-contain mt-2" src="/assets/img/asaslogo.png" alt="ASAS Logo" />
+				<img class="h-14 w-36 object-contain mt-2 " src="/assets/img/asaslogo.png" alt="ASAS Logo" />
 			</a>
-			<div class="flex mt-4">
+			<div class="flex mt-4 absolute right-6">
 				<button class="h-8 md:hidden" on:click={toggleTheme}>
 					<FaMoon />
 				</button>
