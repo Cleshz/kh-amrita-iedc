@@ -66,7 +66,7 @@
 
 <body class="h-screen overflow-y-scroll bg-white dark:bg-neutral-900 dark:text-gray-300">
 	<nav class="sticky top-0 z-50 h-20 border-gray-200 bg-inherit dark:bg-inherit">
-		<div class="relative w-full flex justify-between items-center md:px-40 pt-5 px-10">
+		<div class="relative w-full flex md:justify-around items-center pt-5 px-10">
 			<a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
 				<img class="mt-2 h-14" src="/assets/img/asaslogo.png" alt="ASAS Logo" />
 			</a>
