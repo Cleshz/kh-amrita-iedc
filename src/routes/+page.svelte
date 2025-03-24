@@ -65,21 +65,18 @@
 </script>
 
 <body class="h-screen overflow-y-scroll bg-white dark:bg-neutral-900 dark:text-gray-300">
-	<nav class="sticky top-0 z-50 h-20 border-gray-200 bg-inherit dark:bg-inherit">
-		<div class="relative w-full flex items-center md:justify-around justify-between pt-5 px-10 ">
-			<!-- Ensure the logo has a fixed width -->
-			<a href="/" class="flex items-center space-x-3 rtl:space-x-reverse w-36">
-				<img class="h-14 w-36 object-contain" src="/assets/img/asaslogo.png" alt="ASAS Logo" />
+	<nav class="sticky top-0 z-50 h-20 border-gray-200 bg-inherit dark:bg-inherit max-lg:px-6">
+		<!-- <div class="relative w-full flex items-center md:justify-around justify-between pt-5 px-10 "> -->
+		 <div class="flex justify-between md:justify-around items-center mt-4 ">
+			<a href="/" class="">
+				<img class="h-14 w-36 object-contain mt-2" src="/assets/img/asaslogo.png" alt="ASAS Logo" />
 			</a>
-			<div class="flex items-center space-x-6 ">
-				<!-- Night Mode Toggle -->
-				<button class="h-7 md:hidden" on:click={toggleTheme}>
+			<div class="flex item">
+				<button class="h-8 md:hidden" on:click={toggleTheme}>
 					<FaMoon />
 				</button>
-	
-				<!-- Dropdown Menu Button (Only Visible on Mobile) -->
-				<Button id="placement-bottom" class="md:hidden">
-					<div class="h-12 text-gray-500 outline-none">
+				<Button id="placement-bottom" class="-mt-3 md:hidden w-14">
+					<div class="w-14 text-gray-500 outline-none">
 						<IoMdMenu />
 					</div>
 				</Button>
