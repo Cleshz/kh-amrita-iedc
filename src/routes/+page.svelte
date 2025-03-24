@@ -66,20 +66,32 @@
 
 <body class="h-screen overflow-y-scroll bg-white dark:bg-neutral-900 dark:text-gray-300">
 	<nav class="sticky top-0 z-50 h-20 border-gray-200 bg-inherit dark:bg-inherit">
-		<div class="relative w-full flex md:justify-between items-center pt-5 px-10">
+		<div class="relative w-full flex items-center justify-around pt-5 px-10">
 			<!-- Ensure the logo has a fixed width -->
-			<a href="/" class="flex items-center space-x-3 rtl:space-x-reverse" style="width: 150px;">
-				<img class="h-14 w-36 object-contain" src="/assets/img/asaslogo.png" alt="ASAS Logo" />
+			<a href="/" class="flex items-center space-x-3 rtl:space-x-reverse w-36">
+				<img class="h-14 w-36 object-contain pt-2" src="/assets/img/asaslogo.png" alt="ASAS Logo" />
 			</a>
-		
+			<div class="flex items-center space-x-6 -mr-10">
+				<!-- Night Mode Toggle -->
+				<button class="h-7 md:hidden -mr-10" on:click={toggleTheme}>
+					<FaMoon />
+				</button>
+	
+				<!-- Dropdown Menu Button (Only Visible on Mobile) -->
+				<Button id="placement-bottom" class="md:hidden">
+					<div class="h-12 text-gray-500 outline-none">
+						<IoMdMenu />
+					</div>
+				</Button>
+			</div>
 			<!-- Dropdown Menu Button -->
-			<button class="absolute right-10 mt-1 md:hidden">
+			<!-- <button class="absolute  mt-1 md:hidden">
 				<Button id="placement-bottom">
 					<div class="h-12 text-gray-500 outline-none">
 						<IoMdMenu />
 					</div>
 				</Button>
-			</button>
+			</button> -->
 		
 			<!-- Navbar Links -->
 			<div class="hidden w-full md:block md:w-auto" id="navbar-default">
@@ -102,9 +114,9 @@
 			</div>
 		
 			<!-- Night Mode Toggle -->
-			<button class="absolute right-5 h-7 md:hidden" on:click={toggleTheme}>
+			<!-- <button class=" h-7 md:hidden" on:click={toggleTheme}>
 				<FaMoon />
-			</button>
+			</button> -->
 		</div>
 		
 		
