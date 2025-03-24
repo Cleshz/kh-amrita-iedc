@@ -66,40 +66,33 @@
 
 <body class="h-screen overflow-y-scroll bg-white dark:bg-neutral-900 dark:text-gray-300">
 	<nav class="sticky top-0 z-50 h-20 border-gray-200 bg-inherit dark:bg-inherit">
-		<div class="relative w-full flex md:justify-around items-center pt-5 px-10">
-			<a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-				<img class="mt-2 h-14" src="/assets/img/asaslogo.png" alt="ASAS Logo" />
+		<div class="relative w-full flex md:justify-between items-center pt-5 px-10">
+			<!-- Ensure the logo has a fixed width -->
+			<a href="/" class="flex items-center space-x-3 rtl:space-x-reverse" style="width: 150px;">
+				<img class="h-14 w-36 object-contain" src="/assets/img/asaslogo.png" alt="ASAS Logo" />
 			</a>
-			<button class="absolute right-10  mt-1 items-center hover:text-white md:hidden">
+		
+			<!-- Dropdown Menu Button -->
+			<button class="absolute right-10 mt-1 md:hidden">
 				<Button id="placement-bottom">
 					<div class="h-12 text-gray-500 outline-none">
 						<IoMdMenu />
 					</div>
 				</Button>
 			</button>
+		
+			<!-- Navbar Links -->
 			<div class="hidden w-full md:block md:w-auto" id="navbar-default">
-				<ul
-					class="mt-4 flex flex-col rounded-lg border p-4 text-lg font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0 rtl:space-x-reverse"
-				>
+				<ul class="mt-4 flex flex-col rounded-lg border p-4 text-lg font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0 rtl:space-x-reverse">
 					<li>
-						<a
-							href="#Home"
-							class="block rounded bg-blue-700 px-3 py-2 text-white md:bg-transparent md:p-0 md:text-blue-700 dark:text-white md:dark:text-blue-500"
-							aria-current="page">Home</a
-						>
+						<a href="#Home" class="block rounded bg-blue-700 px-3 py-2 text-white md:bg-transparent md:p-0 md:text-blue-700 dark:text-white md:dark:text-blue-500" aria-current="page">
+							Home
+						</a>
 					</li>
-					<li>
-						<a href="#About" class="nav-link">About</a>
-					</li>
-					<li>
-						<a href="#Savishkaara" class="nav-link">Savishkaara</a>
-					</li>
-					<li>
-						<a href="#Team" class="nav-link">Team</a>
-					</li>
-					<li>
-						<a href="/events" class="nav-link">Events</a>
-					</li>
+					<li><a href="#About" class="nav-link">About</a></li>
+					<li><a href="#Savishkaara" class="nav-link">Savishkaara</a></li>
+					<li><a href="#Team" class="nav-link">Team</a></li>
+					<li><a href="/events" class="nav-link">Events</a></li>
 					<li>
 						<button class="h-7" on:click={toggleTheme}>
 							<FaMoon />
@@ -107,10 +100,14 @@
 					</li>
 				</ul>
 			</div>
+		
+			<!-- Night Mode Toggle -->
 			<button class="absolute right-5 h-7 md:hidden" on:click={toggleTheme}>
 				<FaMoon />
 			</button>
 		</div>
+		
+		
 	</nav>
 
 	<Popover
