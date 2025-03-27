@@ -7,6 +7,7 @@
 	import { openModal } from 'svelte-modals';
 	import EventModal from '$lib/EventModal.svelte';
 	import { Button } from 'flowbite-svelte';
+	export let root="/"
 	let userTheme: boolean = localStorage.getItem('theme') === 'dark';
 	$: {
 		const htmlElement = document.documentElement;
@@ -31,7 +32,7 @@
 				<FaMoon />
 			</button>
 			<button>
-				<a href="/">
+				<a href={root}>
 					<Button id="placement-bottom" class="-mt-3 w-14 md:hidden">
 						<div class="w-14 text-gray-500 outline-none">
 							<TiArrowBack />
@@ -48,7 +49,7 @@
 			>
 				<li>
 					<a
-						href="#Home"
+						href="/#Home"
 						class="block rounded bg-blue-700 px-3 py-2 text-white md:bg-transparent md:p-0 md:text-blue-700 dark:text-white md:dark:text-blue-500"
 						aria-current="page"
 					>
@@ -59,6 +60,7 @@
 				<li><a href="/#Savishkaara" class="nav-link">Savishkaara</a></li>
 				<li><a href="/#Team" class="nav-link">Team</a></li>
 				<li><a href="/events" class="nav-link">Events</a></li>
+				<li><a href="/resources" class="nav-link">Resources</a></li>
 				<li>
 					<button class="h-7" on:click={() => (userTheme = !userTheme)}>
 						<FaMoon />

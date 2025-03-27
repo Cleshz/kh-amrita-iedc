@@ -3,7 +3,7 @@
 
 </script>
 <body class="h-screen overflow-y-scroll bg-white dark:bg-neutral-900 dark:text-gray-300">
-<Navbar/>
+	<Navbar root="/resources"/>
 
 
 </body>

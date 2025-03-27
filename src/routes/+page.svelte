@@ -7,6 +7,7 @@
 	import GiArcheryTarget from 'svelte-icons/gi/GiArcheryTarget.svelte';
 	import FaRocket from 'svelte-icons/fa/FaRocket.svelte';
 	import IoIosFlower from 'svelte-icons/io/IoIosFlower.svelte';
+	import FaCubes from 'svelte-icons/fa/FaCubes.svelte'
 	import { Popover, Button } from 'flowbite-svelte';
 	import { slide } from 'svelte/transition';
 	import About from '$lib/About.svelte';
@@ -105,6 +106,7 @@
 					<li><a href="#Savishkaara" class="nav-link">Savishkaara</a></li>
 					<li><a href="#Team" class="nav-link">Team</a></li>
 					<li><a href="/events" class="nav-link">Events</a></li>
+					<li><a href="/resources" class="nav-link">Resources</a></li>
 					<li>
 						<button class="h-7" on:click={toggleTheme}>
 							<FaMoon />
@@ -127,7 +129,7 @@
 		{placement}
 		transition={slide}
 		trigger="click"
-		class="z-20 h-80 w-full border-none bg-gray-100 opacity-70 shadow-lg shadow-black dark:bg-neutral-900"
+		class="z-20 h-96 w-full border-none bg-gray-100 opacity-70 shadow-lg shadow-black dark:bg-neutral-900"
 	>
 		<ul class="flex flex-col space-y-16 rounded-lg px-4 font-medium">
 			<li>
@@ -149,6 +151,9 @@
 			</li> -->
 			<li>
 				<a href="/events" class="nav-mb pt-2"> <FaRocket /><span class="ml-4">Events</span></a>
+			</li>
+			<li>
+				<a href="/resources" class="nav-mb pt-2"> <FaCubes /><span class="ml-4">Resources</span></a>
 			</li>
 		</ul>
 	</Popover>
