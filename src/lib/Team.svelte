@@ -85,5 +85,11 @@
 			phone="+91 9447783389"
 			mail="iedc@kh.amrita.edu"
 		/>
+		<TeamCard
+			name="Ashtami CR"
+			role="Documentation Lead"
+			phone="+91 9447783389"
+			mail="iedc@kh.amrita.edu"
+		/>
 	</div>
 </div>
