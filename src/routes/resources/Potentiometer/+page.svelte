@@ -120,7 +120,7 @@ void loop() {
 		<div class="mt-32 flex justify-between">
 			<a href="/resources/LedToggle">
 				<button
-					class="group relative h-14 w-48 rounded-2xl border border-black bg-white text-center text-xl font-semibold text-black dark:bg-slate-700 dark:text-white"
+					class="group relative h-14 w-40 rounded-2xl border border-black bg-white text-center text-xl font-semibold text-black dark:bg-slate-700 dark:text-white"
 					type="button"
 				>
 					<div
@@ -144,7 +144,7 @@ void loop() {
 			</a>
 			<a href="/resources/WebServer">
 				<button
-					class="group relative h-14 w-48 rounded-2xl border border-black bg-white text-center text-xl font-semibold text-black dark:bg-slate-700 dark:text-white"
+					class="group relative h-14 w-40 rounded-2xl border border-black bg-white text-center text-xl font-semibold text-black dark:bg-slate-700 dark:text-white"
 					type="button"
 				>
 					<div
