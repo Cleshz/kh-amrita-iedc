@@ -3,19 +3,36 @@
 	import Navbar from '$lib/Navbar.svelte';
 	let code = `
             
-// the setup function runs once when you press reset or power the board
+#define BUTTON_PIN  18 // ESP32 pin GPIO18, which connected to button
+#define LED_PIN     21 // ESP32 pin GPIO21, which connected to led
+
+// variables will change:
+int led_state = LOW;    // the current state of LED
+int button_state;       // the current state of button
+int last_button_state;  // the previous state of button
+
 void setup() {
-  // initialize digital pin GPIO18 as an output.
-  pinMode(18, OUTPUT);
+  Serial.begin(9600);                // initialize serial
+  pinMode(BUTTON_PIN, INPUT_PULLUP); // set ESP32 pin to input pull-up mode
+  pinMode(LED_PIN, OUTPUT);          // set ESP32 pin to output mode
+
+  button_state = digitalRead(BUTTON_PIN);
 }
 
-// the loop function runs over and over again forever
 void loop() {
-  digitalWrite(18, HIGH); // turn the LED on
-  delay(500);             // wait for 500 milliseconds
-  digitalWrite(18, LOW);  // turn the LED off
-  delay(500);             // wait for 500 milliseconds
-}`
+  last_button_state = button_state;      // save the last state
+  button_state = digitalRead(BUTTON_PIN); // read new state
+
+  if (last_button_state == HIGH && button_state == LOW) {
+    Serial.println("The button is pressed");
+
+    // toggle state of LED
+    led_state = !led_state;
+
+    // control LED arccoding to the toggled state
+    digitalWrite(LED_PIN, led_state);
+  }
+}`;
 </script>
 
 <body class="h-screen overflow-y-scroll bg-white dark:bg-neutral-900 dark:text-gray-300">
@@ -25,7 +42,7 @@ void loop() {
 		<h1
 			class="mb-6 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
 		>
-			Getting Started with ESP32
+			LED Toggle
 		</h1>
 
 		<div class="space-y-8">
@@ -33,33 +50,13 @@ void loop() {
 			<div>
 				<h2 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white">Overview</h2>
 				<p class="text-base leading-relaxed">
-					The ESP32 is a powerful, low-cost microcontroller with built-in Wi-Fi and Bluetooth. This
-					guide will help you set up your development environment and start your first project.
+					Toggle a LED <strong class="text-orange-400">ON</strong> or <strong class="text-indigo-500">OFF</strong> using ESP32
+					and a Press Button.
 				</p>
-			</div>
-
-			<!-- Downloads -->
-			<div>
-				<h2 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white">
-					Download & Install
-				</h2>
 				<ul class="list-disc space-y-2 pl-5">
-					<li>
-						<a
-							href="https://downloads.arduino.cc/arduino-ide/arduino-ide_2.3.4_Windows_64bit.msi"
-							target="_blank"
-							class="text-blue-600 hover:underline dark:text-blue-400">Download Arduino IDE</a
-						>
-					</li>
-
-					<li>
-						<a
-							href="https://www.silabs.com/documents/public/software/CP210x_Universal_Windows_Driver.zip"
-							target="_blank"
-							class="text-blue-600 hover:underline dark:text-blue-400"
-							>Download USB-to-UART Driver (CP210x)</a
-						>
-					</li>
+					<li>If the Button is pressed, Turn on LED</li>
+					<li>If the Button is pressed again, Turn off LED</li>
+					<li>Repeat	</li>
 				</ul>
 			</div>
 
@@ -74,18 +71,9 @@ void loop() {
 					<li>Breadboard</li>
 					<li>LED (5mm preferred)</li>
 					<li>220Ω Resistor</li>
+					<li>Push Button</li>
 					<li>Jumper Wires</li>
 				</ul>
-			</div>
-
-			<!-- Quick Note -->
-			<div
-				class="border-l-4 border-pink-700 bg-pink-50 p-4 dark:border-red-700 dark:bg-neutral-800"
-			>
-				<p class="text-sm">
-					Once everything is installed, you can find the ESP32 boards in Arduino IDE under
-					<strong>Tools &gt; Board &gt; ESP32 Arduino</strong>. Select your board and start coding!
-				</p>
 			</div>
 		</div>
 	</section>
@@ -103,6 +91,7 @@ void loop() {
 			LED Pinout
 		</h1>
 		<img class="scale-90" src="/assets/img/resources/led.png" alt="Ledpinout" />
+
 		<h1
 			class="mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
 		>
@@ -110,14 +99,12 @@ void loop() {
 		</h1>
 		<img class="scale-90" src="/assets/img/resources/breadboard.png" alt="Ledpinout" />
 
-
-
 		<h1
 			class="-mb-10 mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
 		>
 			Circuit
 		</h1>
-		<img class="scale-75" src="/assets/img/resources/led_esp.png" alt="pinout" />
+		<img class="scale-75" src="/assets/img/resources/switch_esp.png" alt="pinout" />
 	</section>
 	<section class="mx-auto max-w-4xl p-6">
 		<h1
@@ -125,7 +112,7 @@ void loop() {
 		>
 			Example Code
 		</h1>
-		<MonacoEditor {code}/>
+		<MonacoEditor {code} />
 	</section>
 </body>
 

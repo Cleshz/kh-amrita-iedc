@@ -38,7 +38,7 @@
 	<div bind:this={editorContainer} class="h-full w-full" />
 	<button
 		on:click={copyCode}
-		class="absolute right-5 top-2 flex items-center gap-2 rounded-md bg-neutral-800 px-3 py-1 text-sm text-white shadow-md transition hover:bg-neutral-700"
+		class="absolute right-5 top-6 z-40 flex items-center gap-2 rounded-md bg-neutral-800 px-3 py-1 text-sm text-white shadow-md transition hover:bg-neutral-700"
 	>
 		{#if copied}
 			<div class="w-8 text-green-500"><FaCheck /></div>
