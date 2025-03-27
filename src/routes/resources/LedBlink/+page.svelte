@@ -126,7 +126,34 @@ void loop() {
 			Example Code
 		</h1>
 		<MonacoEditor {code}/>
+		<div class="mt-32 flex justify-end">
+		<a href="/resources/LedToggle">
+			<button
+				class="group relative h-14 w-48 rounded-2xl border border-black bg-white text-center text-xl font-semibold text-black dark:bg-slate-700 dark:text-white"
+				type="button"
+			>
+				<div
+					class="absolute right-1 top-[4px] z-10 flex h-12 w-1/4 rotate-180 items-center justify-center rounded-xl bg-green-400 duration-500 group-hover:w-[184px]"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 1024 1024"
+						height="25px"
+						width="25px"
+					>
+						<path d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z" fill="#000000"></path>
+						<path
+							d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"
+							fill="#000000"
+						></path>
+					</svg>
+				</div>
+				<p class="-ml-3">Next</p>
+			</button>
+		</a>
+	</div>
 	</section>
+
 </body>
 
 <style>

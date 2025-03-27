@@ -50,13 +50,13 @@ void loop() {
 			<div>
 				<h2 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white">Overview</h2>
 				<p class="text-base leading-relaxed">
-					Toggle a LED <strong class="text-orange-400">ON</strong> or <strong class="text-indigo-500">OFF</strong> using ESP32
-					and a Press Button.
+					Toggle a LED <strong class="text-orange-400">ON</strong> or
+					<strong class="text-indigo-500">OFF</strong> using ESP32 and a Press Button.
 				</p>
 				<ul class="list-disc space-y-2 pl-5">
 					<li>If the Button is pressed, Turn on LED</li>
 					<li>If the Button is pressed again, Turn off LED</li>
-					<li>Repeat	</li>
+					<li>Repeat</li>
 				</ul>
 			</div>
 
@@ -113,6 +113,56 @@ void loop() {
 			Example Code
 		</h1>
 		<MonacoEditor {code} />
+		<div class="mt-32 flex justify-between">
+			<a href="/resources/LedBlink">
+				<button
+					class="group relative h-14 w-48 rounded-2xl border border-black bg-white text-center text-xl font-semibold text-black dark:bg-slate-700 dark:text-white"
+					type="button"
+				>
+					<div
+						class="absolute left-1 top-[4px] z-10 flex h-12 w-1/4 items-center justify-center rounded-xl bg-red-400 duration-500 group-hover:w-[184px]"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 1024 1024"
+							height="25px"
+							width="25px"
+						>
+							<path d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z" fill="#000000"></path>
+							<path
+								d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"
+								fill="#000000"
+							></path>
+						</svg>
+					</div>
+					<p class="translate-x-2">Go Back</p>
+				</button>
+			</a>
+			<a href="/resources/Potentiometer">
+				<button
+					class="group relative h-14 w-48 rounded-2xl border border-black bg-white text-center text-xl font-semibold text-black dark:bg-slate-700 dark:text-white"
+					type="button"
+				>
+					<div
+						class="absolute right-1 top-[4px] z-10 flex h-12 w-1/4 rotate-180 items-center justify-center rounded-xl bg-green-400 duration-500 group-hover:w-[184px]"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 1024 1024"
+							height="25px"
+							width="25px"
+						>
+							<path d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z" fill="#000000"></path>
+							<path
+								d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"
+								fill="#000000"
+							></path>
+						</svg>
+					</div>
+					<p class="-ml-3">Next</p>
+				</button>
+			</a>
+		</div>
 	</section>
 </body>
 
