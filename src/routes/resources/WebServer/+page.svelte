@@ -4,39 +4,53 @@
 	let code = `
             
 
-#define POTENTIOMETER_PIN  36  // ESP32 pin GPIO36 (ADC0) connected to Potentiometer pin
-#define LED_PIN            21  // ESP32 pin GPIO21 connected to LED's pin
+#include <WiFi.h>
 
-// the setup routine runs once when you press reset:
+const char *ssid = "ESP32_Hotspot"; // Wi-Fi SSID
+const char *password = "12345678";  // Wi-Fi Password (minimum 8 characters)
+
+WiFiServer server(80);
+
 void setup() {
-  // initialize serial communication at 9600 bits per second:
-  Serial.begin(9600);
-
-  // set the ADC attenuation to 11 dB (up to ~3.3V input)
-  analogSetAttenuation(ADC_11db);
-
-  // declare LED pin to be an output:
-  pinMode(LED_PIN, OUTPUT);
+    Serial.begin(115200);
+    
+    // Set ESP32 as an Access Point
+    WiFi.softAP(ssid, password);
+    Serial.println("Wi-Fi Access Point Started");
+    
+    // Start the server
+    server.begin();
 }
 
-// the loop routine runs over and over again forever:
 void loop() {
-  // reads the input on analog pin A0 (value between 0 and 4095)
-  int analogValue = analogRead(POTENTIOMETER_PIN);
+    WiFiClient client = server.available(); // Check for incoming client
+    if (client) {
+        Serial.println("New Client Connected!");
+        String request = "";
+        
+        while (client.connected()) {
+            if (client.available()) {
+                char c = client.read();
+                request += c;
+                if (c == '\\n') break; // End of request
+            }
+        }
 
-  // scales it to brightness (value between 0 and 255)
-  int brightness = map(analogValue, 0, 4095, 0, 255);
-
-  // sets the brightness LED that connects to  pin 3
-  analogWrite(LED_PIN, brightness);
-
-  // print out the value
-  Serial.print("Analog value = ");
-  Serial.print(analogValue);
-  Serial.print(" => brightness = ");
-  Serial.println(brightness);
-  delay(100);
-}`;
+        // Send HTTP Response
+        client.println("HTTP/1.1 200 OK");
+        client.println("Content-type:text/html");
+        client.println("Connection: close");
+        client.println();
+        client.println("<!DOCTYPE html>");
+        client.println("<html><head><title>ESP32 Web Server</title></head>");
+        client.println("<body><h1>Hello, World!</h1></body></html>");
+        client.println();
+        
+        client.stop(); // Close connection
+        Serial.println("Client Disconnected");
+    }
+}
+`;
 </script>
 
 <body class="h-screen overflow-y-scroll bg-white dark:bg-neutral-900 dark:text-gray-300">
@@ -54,7 +68,7 @@ void loop() {
 			<div>
 				<h2 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white">Overview</h2>
 				<p class="text-base leading-relaxed">
-					Change the brightness of a LED using ESP32 and Potentiometer
+					Create a WiFi Access point on an ESP32 and host a simple website on it.
 				</p>
 			</div>
 
@@ -66,11 +80,6 @@ void loop() {
 				<ul class="list-disc space-y-2 pl-5">
 					<li>ESP32 Development Board (Any variant)</li>
 					<li>Micro USB Cable (Data-enabled)</li>
-					<li>Breadboard</li>
-					<li>LED (5mm preferred)</li>
-					<li>220Ω Resistor</li>
-					<li>Potentiometer</li>
-					<li>Jumper Wires</li>
 				</ul>
 			</div>
 		</div>
@@ -82,33 +91,6 @@ void loop() {
 			ESP 32 Pinout
 		</h1>
 		<img class="md:w-full" src="/assets/img/resources/esp_pinout.png" alt="esppinout" />
-
-		<!-- <h1
-			class="mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
-		>
-			LED Pinout
-		</h1>
-		<img class="scale-90" src="/assets/img/resources/led.png" alt="Ledpinout" /> -->
-
-		<!-- <h1
-			class="mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
-		>
-			BreadBoard Layout
-		</h1>
-		<img class="scale-90" src="/assets/img/resources/breadboard.png" alt="Ledpinout" /> -->
-		<h1
-			class="mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
-		>
-			Potentiometer Pinout
-		</h1>
-		<img class="scale-90" src="/assets/img/resources/pot.png" alt="Ledpinout" />
-
-		<h1
-			class="-mb-10 mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
-		>
-			Circuit
-		</h1>
-		<img class="scale-75" src="/assets/img/resources/potentiometer_led.png" alt="pinout" />
 	</section>
 	<section class="mx-auto max-w-4xl p-6">
 		<h1
@@ -117,8 +99,15 @@ void loop() {
 			Example Code
 		</h1>
 		<MonacoEditor {code} />
+		<div class="mt-10 border-l-4 border-pink-700 bg-pink-50 p-4 dark:border-red-700 dark:bg-neutral-800">
+			<p class="text-sm">
+				Once the code is uploaded, Connect to the newly generated Wifi Access Point. After
+				connecting, Open any browser of your choice and visit
+				<a href="http://192.168.4.1" target="_blank"><strong class="text-indigo-300 underline">192.168.4.1</strong></a>.
+			</p>
+		</div>
 		<div class="mt-32 flex justify-between">
-			<a href="/resources/LedToggle">
+			<a href="/resources/Potentiometer">
 				<button
 					class="group relative h-14 w-48 rounded-2xl border border-black bg-white text-center text-xl font-semibold text-black dark:bg-slate-700 dark:text-white"
 					type="button"
@@ -142,7 +131,7 @@ void loop() {
 					<p class="translate-x-2">Go Back</p>
 				</button>
 			</a>
-			<a href="/resources/WebServer">
+			<a href="/resources/Drivers">
 				<button
 					class="group relative h-14 w-48 rounded-2xl border border-black bg-white text-center text-xl font-semibold text-black dark:bg-slate-700 dark:text-white"
 					type="button"
