@@ -3,52 +3,63 @@
 	import Navbar from '$lib/Navbar.svelte';
 	let code = `
             
+// Motor A Pins
+const int motor1Pin1 = 27;
+const int motor1Pin2 = 26;
+const int enable1Pin = 14;
 
-#include <WiFi.h>
-
-const char *ssid = "ESP32_Hotspot"; // Wi-Fi SSID
-const char *password = "12345678";  // Wi-Fi Password (minimum 8 characters)
-
-WiFiServer server(80);
+// PWM Settings
+const int pwmChannel = 0;
+const int freq = 30000;
+const int resolution = 8;
 
 void setup() {
-    Serial.begin(115200);
-    
-    // Set ESP32 as an Access Point
-    WiFi.softAP(ssid, password);
-    Serial.println("Wi-Fi Access Point Started");
-    
-    // Start the server
-    server.begin();
+  pinMode(motor1Pin1, OUTPUT);
+  pinMode(motor1Pin2, OUTPUT);
+  pinMode(enable1Pin, OUTPUT);
+
+  ledcSetup(pwmChannel, freq, resolution);
+  ledcAttachPin(enable1Pin, pwmChannel);
+
+  Serial.begin(115200);
+  Serial.println("DC Motor Test");
 }
 
 void loop() {
-    WiFiClient client = server.available(); // Check for incoming client
-    if (client) {
-        Serial.println("New Client Connected!");
-        String request = "";
-        
-        while (client.connected()) {
-            if (client.available()) {
-                char c = client.read();
-                request += c;
-                if (c == '\\n') break; // End of request
-            }
-        }
+  moveMotor(HIGH, LOW, 2000, 200);  // Forward
+  stopMotor(1000);                  // Stop
+  moveMotor(LOW, HIGH, 2000, 200);  // Backward
+  stopMotor(1000);                  // Stop
+  accelerateMotor(HIGH, LOW, 200, 255, 5, 500); // Accelerate forward
+}
 
-        // Send HTTP Response
-        client.println("HTTP/1.1 200 OK");
-        client.println("Content-type:text/html");
-        client.println("Connection: close");
-        client.println();
-        client.println("<!DOCTYPE html>");
-        client.println("<html><head><title>ESP32 Web Server</title></head>");
-        client.println("<body><h1>Hello, World!</h1></body></html>");
-        client.println();
-        
-        client.stop(); // Close connection
-        Serial.println("Client Disconnected");
-    }
+// Function to move motor in a direction
+void moveMotor(int dir1, int dir2, int duration, int speed) {
+  digitalWrite(motor1Pin1, dir1);
+  digitalWrite(motor1Pin2, dir2);
+  ledcWrite(pwmChannel, speed);
+  Serial.println(dir1 ? "Moving Backward" : "Moving Forward");
+  delay(duration);
+}
+
+// Function to stop motor
+void stopMotor(int duration) {
+  digitalWrite(motor1Pin1, LOW);
+  digitalWrite(motor1Pin2, LOW);
+  Serial.println("Motor stopped");
+  delay(duration);
+}
+
+// Function to gradually increase speed
+void accelerateMotor(int dir1, int dir2, int startSpeed, int maxSpeed, int step, int delayTime) {
+  digitalWrite(motor1Pin1, dir1);
+  digitalWrite(motor1Pin2, dir2);
+  for (int speed = startSpeed; speed <= maxSpeed; speed += step) {
+    ledcWrite(pwmChannel, speed);
+    Serial.print("Speed: ");
+    Serial.println(speed);
+    delay(delayTime);
+  }
 }
 `;
 </script>
@@ -60,7 +71,7 @@ void loop() {
 		<h1
 			class="mb-6 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
 		>
-			WebServer
+			Motor Drivers
 		</h1>
 
 		<div class="space-y-8">
@@ -68,7 +79,7 @@ void loop() {
 			<div>
 				<h2 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white">Overview</h2>
 				<p class="text-base leading-relaxed">
-					Create a WiFi Access point on an ESP32 and host a simple website on it.
+					Control a motor using PWM signals with the help of ESP32 and L298N Motor Driver
 				</p>
 			</div>
 
@@ -80,6 +91,11 @@ void loop() {
 				<ul class="list-disc space-y-2 pl-5">
 					<li>ESP32 Development Board (Any variant)</li>
 					<li>Micro USB Cable (Data-enabled)</li>
+					<li>Breadboard</li>
+					<li>L298N Motor Driver</li>
+					<li>Battery</li>
+					<li>DC Motor</li>
+					<li>Jumper Wires</li>
 				</ul>
 			</div>
 		</div>
@@ -91,6 +107,33 @@ void loop() {
 			ESP 32 Pinout
 		</h1>
 		<img class="md:w-full" src="/assets/img/resources/esp_pinout.png" alt="esppinout" />
+
+		<!-- <h1
+			class="mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
+		>
+			LED Pinout
+		</h1>
+		<img class="scale-90" src="/assets/img/resources/led.png" alt="Ledpinout" /> -->
+
+		<!-- <h1
+			class="mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
+		>
+			BreadBoard Layout
+		</h1>
+		<img class="scale-90" src="/assets/img/resources/breadboard.png" alt="Ledpinout" /> -->
+		<h1
+			class="mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
+		>
+			Motor Driver - L298N
+		</h1>
+		<img class="scale-90" src="/assets/img/resources/L298N.png" alt="Ledpinout" />
+
+		<h1
+			class="-mb-10 mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
+		>
+			Circuit
+		</h1>
+		<img class="scale-75" src="/assets/img/resources/L298N_esp.png" alt="pinout" />
 	</section>
 	<section class="mx-auto max-w-4xl p-6">
 		<h1
@@ -99,15 +142,8 @@ void loop() {
 			Example Code
 		</h1>
 		<MonacoEditor {code} />
-		<div class="mt-10 border-l-4 border-pink-700 bg-pink-50 p-4 dark:border-red-700 dark:bg-neutral-800">
-			<p class="text-sm">
-				Once the code is uploaded, Connect to the newly generated Wifi Access Point. After
-				connecting, Open any browser of your choice and visit
-				<a href="http://192.168.4.1" target="_blank"><strong class="text-indigo-300 underline">192.168.4.1</strong></a>.
-			</p>
-		</div>
 		<div class="mt-32 flex justify-between">
-			<a href="/resources/Potentiometer">
+			<a href="/resources/LedToggle">
 				<button
 					class="group relative h-14 w-48 rounded-2xl border border-black bg-white text-center text-xl font-semibold text-black dark:bg-slate-700 dark:text-white"
 					type="button"
@@ -131,7 +167,7 @@ void loop() {
 					<p class="translate-x-2">Go Back</p>
 				</button>
 			</a>
-			<a href="/resources/Drivers">
+			<a href="/resources/WebServer">
 				<button
 					class="group relative h-14 w-48 rounded-2xl border border-black bg-white text-center text-xl font-semibold text-black dark:bg-slate-700 dark:text-white"
 					type="button"
