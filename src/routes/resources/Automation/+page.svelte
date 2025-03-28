@@ -66,16 +66,15 @@ void accelerateMotor(int dir1, int dir2, int startSpeed, int maxSpeed, int step,
 
 <body class="h-screen overflow-y-scroll bg-white dark:bg-neutral-900 dark:text-gray-300">
 	<Navbar root="/resources" />
-
-	<section class="mx-auto max-w-3xl p-6">
+	<h1 class="text-6xl text-center text-red-600 font-bold mt-32">PAGE UNDER CONSTRUCTION!!!</h1>
+	<!-- <section class="mx-auto max-w-3xl p-6">
 		<h1
 			class="mb-6 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
 		>
-			Motor Drivers
+			Home Automation
 		</h1>
 
 		<div class="space-y-8">
-			<!-- Introduction -->
 			<div>
 				<h2 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white">Overview</h2>
 				<p class="text-base leading-relaxed">
@@ -83,7 +82,7 @@ void accelerateMotor(int dir1, int dir2, int startSpeed, int maxSpeed, int step,
 				</p>
 			</div>
 
-			<!-- Components Required -->
+	
 			<div>
 				<h2 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white">
 					Components Required
@@ -108,19 +107,6 @@ void accelerateMotor(int dir1, int dir2, int startSpeed, int maxSpeed, int step,
 		</h1>
 		<img class="md:w-full" src="/assets/img/resources/esp_pinout.png" alt="esppinout" />
 
-		<!-- <h1
-			class="mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
-		>
-			LED Pinout
-		</h1>
-		<img class="scale-90" src="/assets/img/resources/led.png" alt="Ledpinout" /> -->
-
-		<!-- <h1
-			class="mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
-		>
-			BreadBoard Layout
-		</h1>
-		<img class="scale-90" src="/assets/img/resources/breadboard.png" alt="Ledpinout" /> -->
 		<h1
 			class="mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
 		>
@@ -192,7 +178,7 @@ void accelerateMotor(int dir1, int dir2, int startSpeed, int maxSpeed, int step,
 				</button>
 			</a>
 		</div>
-	</section>
+	</section> -->
 </body>
 
 <style>
