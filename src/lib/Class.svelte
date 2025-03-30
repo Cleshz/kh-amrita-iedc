@@ -6,11 +6,11 @@
 	export let url = '';
 </script>
 
-<div class="card group scale-90 duration-300 hover:scale-95 shadow-2xl shadow-black">
+<div class="card group scale-90 shadow-2xl shadow-black duration-300 hover:scale-95 cursor-pointer">
 	<div class="flex w-full justify-center">
 		<svg
-			class="App-logo mt-7 scale-75 fill-white stroke-black transition-colors duration-300 
-			group-hover:stroke-red-500 dark:fill-slate-950 dark:stroke-white "
+			class={`App-logo mt-7 scale-75 fill-white stroke-black transition-colors duration-300
+			 ${level == 'Basics' ? 'group-hover:stroke-red-500' : ' group-hover:stroke-orange-400'} dark:fill-slate-950 dark:stroke-white`}
 			id="Layer_1"
 			data-name="Layer 1"
 			xmlns="http://www.w3.org/2000/svg"
@@ -22,8 +22,10 @@
 	</div>
 	<div class="header">
 		<center>
-			<span class="welcometo">ESP 32 {level}</span> <br />
-			<span class="dark:text-white text-black">{title}</span>
+			<span class={`${level == 'Basics' ? 'text-red-600' : ' text-orange-500'} `}
+				>ESP 32 {level}</span
+			> <br />
+			<span class="text-black dark:text-white">{title}</span>
 		</center>
 	</div>
 	<a
@@ -71,10 +73,6 @@
 	.App-button:hover {
 		color: #191e24;
 		background-color: #52ff5b;
-	}
-
-	.welcometo {
-		color: #dc5f6a;
 	}
 
 	/* .python {
