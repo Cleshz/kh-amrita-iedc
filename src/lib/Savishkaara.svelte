@@ -1,16 +1,6 @@
 <script lang="ts">
 	export let userTheme: boolean;
-	// localStorage.getItem('theme') === 'dark';
-	// $: {
-	// 	const htmlElement = document.documentElement;
-	// 	if (userTheme) {
-	// 		htmlElement.classList.add('dark');
-	// 		localStorage.setItem('theme', 'dark');
-	// 	} else {
-	// 		htmlElement.classList.remove('dark');
-	// 		localStorage.setItem('theme', 'light');
-	// 	}
-	// }
+
 </script>
 
 <h1

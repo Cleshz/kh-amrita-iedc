@@ -1,34 +1,23 @@
 <script lang="ts">
-	//@ts-nocheck
+	// @ts-nocheck
 	import FaMoon from 'svelte-icons/fa/FaMoon.svelte';
 	import TiArrowBack from 'svelte-icons/ti/TiArrowBack.svelte';
-	import EventCard from '$lib/EventCard.svelte';
-	import { Modals } from 'svelte-modals';
-	import { openModal } from 'svelte-modals';
-	import EventModal from '$lib/EventModal.svelte';
+	import { theme } from './themeStore';
 	import { Button } from 'flowbite-svelte';
-	export let root="/"
-	let userTheme: boolean = localStorage.getItem('theme') === 'dark';
-	$: {
-		const htmlElement = document.documentElement;
-		if (userTheme) {
-			htmlElement.classList.add('dark');
-			localStorage.setItem('theme', 'dark');
-		} else {
-			htmlElement.classList.remove('dark');
-			localStorage.setItem('theme', 'light');
-		}
+	export let root = "/";
+
+	function toggleTheme() {
+		theme.update((current) => !current);
 	}
 </script>
 
 <nav class="sticky top-0 z-50 h-20 border-gray-200 bg-inherit max-lg:px-6 dark:bg-inherit">
-	<!-- <div class="relative w-full flex items-center md:justify-around justify-between pt-5 px-10 "> -->
 	<div class="mt-4 flex w-full items-center md:justify-between md:px-20">
 		<a href="/" class="mt-2">
 			<img class="h-14 w-36 object-contain" src="/assets/img/asaslogo.png" alt="ASAS Logo" />
 		</a>
 		<div class="absolute right-6 mt-4 flex">
-			<button class="absolute right-10 w-8 md:hidden" on:click={() => (userTheme = !userTheme)}>
+			<button class="absolute right-10 w-8 md:hidden" on:click={toggleTheme}>
 				<FaMoon />
 			</button>
 			<button>
@@ -62,7 +51,7 @@
 				<li><a href="/events" class="nav-link">Events</a></li>
 				<li><a href="/resources" class="nav-link">Resources</a></li>
 				<li>
-					<button class="h-7" on:click={() => (userTheme = !userTheme)}>
+					<button class="h-7" on:click={toggleTheme}>
 						<FaMoon />
 					</button>
 				</li>

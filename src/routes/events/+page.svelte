@@ -8,17 +8,7 @@
 	import EventModal from '$lib/EventModal.svelte';
 	import { Button } from 'flowbite-svelte';
 	import Navbar from '$lib/Navbar.svelte';
-	let userTheme: boolean = localStorage.getItem('theme') === 'dark';
-	$: {
-		const htmlElement = document.documentElement;
-		if (userTheme) {
-			htmlElement.classList.add('dark');
-			localStorage.setItem('theme', 'dark');
-		} else {
-			htmlElement.classList.remove('dark');
-			localStorage.setItem('theme', 'light');
-		}
-	}
+
 </script>
 
 <body class="h-screen overflow-y-scroll bg-white dark:bg-neutral-900 dark:text-gray-300">

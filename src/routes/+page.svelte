@@ -1,84 +1,56 @@
 <script lang="ts">
 	//@ts-nocheck
 	import FaMoon from 'svelte-icons/fa/FaMoon.svelte';
-	import FaRegSun from 'svelte-icons/fa/FaRegSun.svelte';
 	import IoMdMenu from 'svelte-icons/io/IoMdMenu.svelte';
 	import TiHome from 'svelte-icons/ti/TiHome.svelte';
 	import GiArcheryTarget from 'svelte-icons/gi/GiArcheryTarget.svelte';
 	import FaRocket from 'svelte-icons/fa/FaRocket.svelte';
 	import IoIosFlower from 'svelte-icons/io/IoIosFlower.svelte';
-	import FaCubes from 'svelte-icons/fa/FaCubes.svelte'
+	import FaCubes from 'svelte-icons/fa/FaCubes.svelte';
+	import FaUsers from 'svelte-icons/fa/FaUsers.svelte';
 	import { Popover, Button } from 'flowbite-svelte';
 	import { slide } from 'svelte/transition';
 	import About from '$lib/About.svelte';
 	import Savishkaara from '$lib/Savishkaara.svelte';
 	import Team from '$lib/Team.svelte';
 	import ImageCarousel from '$lib/ImageCarousel.svelte';
-	import FaUsers from 'svelte-icons/fa/FaUsers.svelte';
 	import Contacts from '$lib/Contacts.svelte';
-	import IoMdCall from 'svelte-icons/io/IoMdCall.svelte';
-	import { navigating } from '$app/stores';
+
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
+	import { theme } from '$lib/themeStore';
+	let unsubscribe: () => void;
 
-	let placement: string = 'bottom';
-
-	let userTheme = 5;
-	let isThemeReady = false;
+	let userTheme: boolean;
 	if (browser) {
 		userTheme = localStorage.getItem('theme') === 'dark';
 	}
 	onMount(() => {
 		if (browser) {
-			const storedTheme = localStorage.getItem('theme');
-			userTheme = storedTheme === 'dark';
-
-			const htmlElement = document.documentElement;
-			if (userTheme) {
-				htmlElement.classList.add('dark');
-				localStorage.setItem('theme', 'dark');
-			} else {
-				htmlElement.classList.remove('dark');
-				localStorage.setItem('theme', 'light');
-			}
-			isThemeReady = true;
+			theme.set(localStorage.getItem('theme') === 'dark');
 		}
+		unsubscribe = theme.subscribe((isDark) => {
+			userTheme = isDark;
+		});
 	});
 	function toggleTheme() {
-		if (browser) {
-			userTheme = !userTheme;
-			const htmlElement = document.documentElement;
-			if (userTheme) {
-				htmlElement.classList.add('dark');
-				localStorage.setItem('theme', 'dark');
-			} else {
-				htmlElement.classList.remove('dark');
-				localStorage.setItem('theme', 'light');
-			}
-		}
-	}
-
-	function toggleMenu() {
-		const menu = document.getElementById('mobile-menu');
-		// @ts-ignore
-		menu?.classList.toggle('hidden');
+		theme.update((current) => !current);
 	}
 </script>
 
 <body class="h-screen overflow-y-scroll bg-white dark:bg-neutral-900 dark:text-gray-300">
-	<nav class="sticky top-0 z-50 h-20 border-gray-200 bg-inherit dark:bg-inherit max-lg:px-6">
+	<nav class="sticky top-0 z-50 h-20 border-gray-200 bg-inherit max-lg:px-6 dark:bg-inherit">
 		<!-- <div class="relative w-full flex items-center md:justify-around justify-between pt-5 px-10 "> -->
-		 <div class="flex md:justify-between md:px-20 items-center mt-4 w-full">
+		<div class="mt-4 flex w-full items-center md:justify-between md:px-20">
 			<a href="/" class="">
-				<img class="h-14 w-36 object-contain mt-2 " src="/assets/img/asaslogo.png" alt="ASAS Logo" />
+				<img class="mt-2 h-14 w-36 object-contain" src="/assets/img/asaslogo.png" alt="ASAS Logo" />
 			</a>
-			<div class="flex mt-4 absolute right-6">
-				<button class="w-8 md:hidden absolute right-10" on:click={toggleTheme}>
+			<div class="absolute right-6 mt-4 flex">
+				<button class="absolute right-10 w-8 md:hidden" on:click={toggleTheme}>
 					<FaMoon />
 				</button>
 				<button>
-
-					<Button id="placement-bottom" class="-mt-3 md:hidden w-14">
+					<Button id="placement-bottom" class="-mt-3 w-14 md:hidden">
 						<div class="w-14 text-gray-500 outline-none">
 							<IoMdMenu />
 						</div>
@@ -93,12 +65,18 @@
 					</div>
 				</Button>
 			</button> -->
-		
+
 			<!-- Navbar Links -->
 			<div class="hidden w-full md:block md:w-auto" id="navbar-default">
-				<ul class="mt-4 flex flex-col rounded-lg border p-4 text-lg font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0 rtl:space-x-reverse">
+				<ul
+					class="mt-4 flex flex-col rounded-lg border p-4 text-lg font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:p-0 rtl:space-x-reverse"
+				>
 					<li>
-						<a href="#Home" class="block rounded bg-blue-700 px-3 py-2 text-white md:bg-transparent md:p-0 md:text-blue-700 dark:text-white md:dark:text-blue-500" aria-current="page">
+						<a
+							href="#Home"
+							class="block rounded bg-blue-700 px-3 py-2 text-white md:bg-transparent md:p-0 md:text-blue-700 dark:text-white md:dark:text-blue-500"
+							aria-current="page"
+						>
 							Home
 						</a>
 					</li>
@@ -114,19 +92,17 @@
 					</li>
 				</ul>
 			</div>
-		
+
 			<!-- Night Mode Toggle -->
 			<!-- <button class=" h-7 md:hidden" on:click={toggleTheme}>
 				<FaMoon />
 			</button> -->
 		</div>
-		
-		
 	</nav>
 
 	<Popover
 		triggeredBy="#placement-bottom"
-		{placement}
+		placement="bottom"
 		transition={slide}
 		trigger="click"
 		class="z-20 h-96 w-full border-none bg-gray-100 opacity-70 shadow-lg shadow-black dark:bg-neutral-900"

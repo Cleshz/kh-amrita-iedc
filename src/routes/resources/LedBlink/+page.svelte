@@ -1,7 +1,9 @@
 <script lang="ts">
 	import MonacoEditor from '$lib/MonacoEditor.svelte';
 	import Navbar from '$lib/Navbar.svelte';
-	let code = `
+
+	
+	let code1 = `
             
 // the setup function runs once when you press reset or power the board
 void setup() {
@@ -16,6 +18,39 @@ void loop() {
   digitalWrite(18, LOW);  // turn the LED off
   delay(500);             // wait for 500 milliseconds
 }`
+
+	let code2=`
+	
+// Define LED pin
+#define LED_PIN 18
+
+// PWM parameters
+#define LEDC_CHANNEL 0   // PWM channel
+#define LEDC_FREQ 5000   // Frequency (5 kHz)
+#define LEDC_RESOLUTION 8 // 8-bit resolution (0-255)
+
+void setup() {
+  // Configure the LEDC PWM functionality
+  ledcSetup(LEDC_CHANNEL, LEDC_FREQ, LEDC_RESOLUTION);
+  // Attach the LED pin to the channel
+  ledcAttachPin(LED_PIN, LEDC_CHANNEL);
+}
+
+void loop() {
+  // Fade in
+  for (int dutyCycle = 0; dutyCycle <= 255; dutyCycle++) {
+    ledcWrite(LEDC_CHANNEL, dutyCycle);
+    delay(5); // Adjust speed of fade
+  }
+
+  // Fade out
+  for (int dutyCycle = 255; dutyCycle >= 0; dutyCycle--) {
+    ledcWrite(LEDC_CHANNEL, dutyCycle);
+    delay(5);
+  }
+}
+
+	`
 </script>
 
 <body class="h-screen overflow-y-scroll bg-white dark:bg-neutral-900 dark:text-gray-300">
@@ -125,9 +160,15 @@ void loop() {
 		<h1
 			class="mb-6 mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
 		>
-			Example Code
+			Example Code - LED Blink
 		</h1>
-		<MonacoEditor {code}/>
+		<MonacoEditor code={code1}/>
+		<h1
+			class="mb-6 mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
+		>
+			Example Code - LED Fade
+		</h1>
+		<MonacoEditor code={code2}/>
 		<div class="mt-32 flex justify-end">
 		<a href="/resources/LedToggle">
 			<button
