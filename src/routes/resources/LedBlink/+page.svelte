@@ -51,7 +51,9 @@ void loop() {
 							class="text-blue-600 hover:underline dark:text-blue-400">Download Arduino IDE</a
 						>
 					</li>
-
+					<li>
+						After Installing Arduino IDE, Launch the application and go to <br> <b>Tools > Board > BoardManager > Search "ESP32 Espressif" > Install </b>
+					</li>
 					<li>
 						<a
 							href="https://www.silabs.com/documents/public/software/CP210x_Universal_Windows_Driver.zip"
