@@ -107,29 +107,27 @@
 		trigger="click"
 		class="z-20 h-96 w-full border-none bg-gray-100 opacity-70 shadow-lg shadow-black dark:bg-neutral-900"
 	>
-		<ul class="flex flex-col space-y-16 rounded-lg px-4 font-medium">
+		<ul class="flex flex-col space-y-4 rounded-lg px-4 font-medium ">
 			<li>
-				<a href="#Home" class="nav-mb"> <TiHome /><span class="ml-2 mt-2">Home</span></a>
+				<a href="#Home" class="nav-mb w-32 "> <TiHome /><span class="ml-2 mt-2">Home</span></a>
 			</li>
 			<li>
-				<a href="#About" class="nav-mb"> <GiArcheryTarget /><span class="ml-2 mt-2">About</span></a>
+				<a href="#About" class="nav-mb w-32 "> <GiArcheryTarget /><span class="ml-2 mt-2">About</span></a>
 			</li>
 			<li>
-				<a href="#Savishkaara" class="nav-mb">
-					<IoIosFlower /><span class="ml-2 mt-1">Savishkaara</span></a
+				<a href="#Savishkaara" class="nav-mb w-40 ">
+					<IoIosFlower /><span class=" mt-1">Savishkaara</span></a
 				>
 			</li>
 			<li>
-				<a href="#Team" class="nav-mb"> <FaUsers /><span class="ml-2 mt-1">Team</span></a>
+				<a href="#Team" class="nav-mb w-28 "> <FaUsers /><span class="ml-3 mt-1">Team</span></a>
 			</li>
-			<!-- <li>
-				<a href="#Contacts" class="nav-mb"> <IoMdCall /><span class="ml-2 mt-1">Contacts</span></a>
-			</li> -->
+
 			<li>
-				<a href="/events" class="nav-mb pt-2"> <FaRocket /><span class="ml-4">Events</span></a>
+				<a href="/events" class="nav-mb w-32 "> <FaRocket /><span class="ml-4">Events</span></a>
 			</li>
 			<li>
-				<a href="/resources" class="nav-mb pt-2"> <FaCubes /><span class="ml-4">Resources</span></a>
+				<a href="/resources" class="nav-mb w-40 "> <FaCubes /><span class="ml-4">Resources</span></a>
 			</li>
 		</ul>
 	</Popover>
@@ -204,7 +202,7 @@
 	}
 
 	.nav-mb {
-		@apply absolute flex h-10 px-3 text-blue-700 dark:text-white;
+		@apply flex px-3 text-blue-700 dark:text-white;
 	}
 	/* From Uiverse.io by aidanwain */
 	.btn {
