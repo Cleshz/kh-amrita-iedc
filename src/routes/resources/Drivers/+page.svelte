@@ -3,68 +3,42 @@
 	import Navbar from '$lib/Navbar.svelte';
 	let code = `
             
-// Motor A
-int motor1Pin1 = 27; 
-int motor1Pin2 = 26; 
-int enable1Pin = 14; 
+#define PIN_IN1  26 // ESP32 pin GPIO19 connected to the IN1 pin L298N
+#define PIN_IN2  27 // ESP32 pin GPIO18 connected to the IN2 pin L298N
+#define PIN_ENA  14 // ESP32 pin GPIO17 connected to the EN1 pin L298N
 
-// Setting PWM properties
-const int freq = 30000;
-const int pwmChannel = 0;
-const int resolution = 8;
-int dutyCycle = 200;
-
+// the setup function runs once when you press reset or power the board
 void setup() {
-  // sets the pins as outputs:
-  pinMode(motor1Pin1, OUTPUT);
-  pinMode(motor1Pin2, OUTPUT);
-  pinMode(enable1Pin, OUTPUT);
-  
-  // configure LEDC PWM
-  ledcAttachChannel(enable1Pin, freq, resolution, pwmChannel);
-
-  Serial.begin(115200);
-
-  // testing
-  Serial.print("Testing DC Motor...");
+  // initialize digital pins as outputs.
+  pinMode(PIN_IN1, OUTPUT);
+  pinMode(PIN_IN2, OUTPUT);
+  pinMode(PIN_ENA, OUTPUT);
 }
 
+// the loop function runs over and over again forever
 void loop() {
-  // Move the DC motor forward at maximum speed
-  Serial.println("Moving Forward");
-  digitalWrite(motor1Pin1, LOW);
-  digitalWrite(motor1Pin2, HIGH); 
-  delay(2000);
+  digitalWrite(PIN_IN1, HIGH); // control the motor's direction in clockwise
+  digitalWrite(PIN_IN2, LOW);  // control the motor's direction in clockwise
 
-  // Stop the DC motor
-  Serial.println("Motor stopped");
-  digitalWrite(motor1Pin1, LOW);
-  digitalWrite(motor1Pin2, LOW);
-  delay(1000);
-
-  // Move DC motor backwards at maximum speed
-  Serial.println("Moving Backwards");
-  digitalWrite(motor1Pin1, HIGH);
-  digitalWrite(motor1Pin2, LOW); 
-  delay(2000);
-
-  // Stop the DC motor
-  Serial.println("Motor stopped");
-  digitalWrite(motor1Pin1, LOW);
-  digitalWrite(motor1Pin2, LOW);
-  delay(1000);
-
-  // Move DC motor forward with increasing speed
-  digitalWrite(motor1Pin1, HIGH);
-  digitalWrite(motor1Pin2, LOW);
-  while (dutyCycle <= 255){
-    ledcWrite(enable1Pin, dutyCycle);   
-    Serial.print("Forward with duty cycle: ");
-    Serial.println(dutyCycle);
-    dutyCycle = dutyCycle + 5;
-    delay(500);
+  for (int speed = 0; speed <= 255; speed++) {
+    analogWrite(PIN_ENA, speed); // speed up
+    delay(10);
   }
-  dutyCycle = 200;
+
+  delay(5000); // rotate at maximum speed 2 seconds in clockwise direction
+
+  // change direction
+  digitalWrite(PIN_IN1, LOW);   // control the motor's direction in anti-clockwise
+  digitalWrite(PIN_IN2, HIGH);  // control the motor's direction in anti-clockwise
+
+  delay(5000); // rotate at maximum speed for 2 seconds in anti-clockwise direction
+
+  for (int speed = 255; speed >= 0; speed--) {
+    analogWrite(PIN_ENA, speed); // speed down
+    delay(10);
+  }
+
+  delay(2000); // stop motor 2 second
 }
 `;
 </script>

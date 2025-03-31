@@ -6,19 +6,19 @@
 
 <body class="h-screen overflow-y-scroll bg-white dark:bg-neutral-900 dark:text-gray-300">
 	<Navbar root="/resources" />
-	<h1 class="text-4xl text-fuchsia-400 font-bold text-center">Under Construction😩💔</h1>
-	<!-- <section class="mx-auto max-w-3xl p-6">
+
+	<section class="mx-auto max-w-3xl p-6">
 		<h1
 			class="mb-6 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
 		>
-			Home Automation
+			Bluetooth Car using Dabble
 		</h1>
 
 		<div class="space-y-8">
 			<div>
 				<h2 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white">Overview</h2>
 				<p class="text-base leading-relaxed">
-					Control LEDs/Appliances through a WebServer, and Host its own Access point 
+					Create your own RC car using ESP32 and Dabble app.
 				</p>
 			</div>
 
@@ -33,6 +33,9 @@
 					<li>Breadboard</li>
 					<li>LED (5mm preferred)</li>
 					<li>220Ω Resistor</li>
+					<li>L298N Motor Driver</li>
+					<li>Battery</li>
+					<li>DC Motor</li>
 					<li>Jumper Wires</li>
 				</ul>
 			</div>
@@ -53,7 +56,7 @@
 		>
 			Circuit
 		</h1>
-		<img class="scale-75" src="/assets/img/resources/led_esp_server.png" alt="pinout" />
+		<img class="scale-75" src="/assets/img/resources/esp_car.png" alt="pinout" />
 	</section>
 	<section class="mx-auto max-w-4xl p-6">
 		<h1
@@ -64,16 +67,14 @@
 		<MonacoEditor {code} />
 		<div class="mt-10 border-l-4 border-pink-700 bg-pink-50 p-4 dark:border-red-700 dark:bg-neutral-800">
 			<p class="text-sm">
-				Once the code is uploaded, Connect to the newly generated Wifi Access Point. After
-				connecting, Open any browser of your choice and visit
-				<a href="http://192.168.4.1" target="_blank"><strong class="text-indigo-300 underline">192.168.4.1</strong></a>.
+				Once the code is uploaded, Open AppStore or PlayStore and Install <strong class="text-indigo-300 underline">Dabble - Bluetooth Controller</strong>
 			</p>
 		</div>
 		<div class="mt-32 flex justify-between">
 			
 			
 		</div>
-	</section> -->
+	</section>
 </body>
 
 <style>
