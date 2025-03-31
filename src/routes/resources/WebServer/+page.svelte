@@ -1,56 +1,7 @@
 <script lang="ts">
 	import MonacoEditor from '$lib/MonacoEditor.svelte';
 	import Navbar from '$lib/Navbar.svelte';
-	let code = `
-            
-
-#include <WiFi.h>
-
-const char *ssid = "ESP32_Hotspot"; // Wi-Fi SSID
-const char *password = "12345678";  // Wi-Fi Password (minimum 8 characters)
-
-WiFiServer server(80);
-
-void setup() {
-    Serial.begin(115200);
-    
-    // Set ESP32 as an Access Point
-    WiFi.softAP(ssid, password);
-    Serial.println("Wi-Fi Access Point Started");
-    
-    // Start the server
-    server.begin();
-}
-
-void loop() {
-    WiFiClient client = server.available(); // Check for incoming client
-    if (client) {
-        Serial.println("New Client Connected!");
-        String request = "";
-        
-        while (client.connected()) {
-            if (client.available()) {
-                char c = client.read();
-                request += c;
-                if (c == '\\n') break; // End of request
-            }
-        }
-
-        // Send HTTP Response
-        client.println("HTTP/1.1 200 OK");
-        client.println("Content-type:text/html");
-        client.println("Connection: close");
-        client.println();
-        client.println("<!DOCTYPE html>");
-        client.println("<html><head><title>ESP32 Web Server</title></head>");
-        client.println("<body><h1>Hello, World!</h1></body></html>");
-        client.println();
-        
-        client.stop(); // Close connection
-        Serial.println("Client Disconnected");
-    }
-}
-`;
+	import { code } from './code';;
 </script>
 
 <body class="h-screen overflow-y-scroll bg-white dark:bg-neutral-900 dark:text-gray-300">

@@ -3,63 +3,68 @@
 	import Navbar from '$lib/Navbar.svelte';
 	let code = `
             
-// Motor A Pins
-const int motor1Pin1 = 27;
-const int motor1Pin2 = 26;
-const int enable1Pin = 14;
+// Motor A
+int motor1Pin1 = 27; 
+int motor1Pin2 = 26; 
+int enable1Pin = 14; 
 
-// PWM Settings
-const int pwmChannel = 0;
+// Setting PWM properties
 const int freq = 30000;
+const int pwmChannel = 0;
 const int resolution = 8;
+int dutyCycle = 200;
 
 void setup() {
+  // sets the pins as outputs:
   pinMode(motor1Pin1, OUTPUT);
   pinMode(motor1Pin2, OUTPUT);
   pinMode(enable1Pin, OUTPUT);
-
-  ledcSetup(pwmChannel, freq, resolution);
-  ledcAttachPin(enable1Pin, pwmChannel);
+  
+  // configure LEDC PWM
+  ledcAttachChannel(enable1Pin, freq, resolution, pwmChannel);
 
   Serial.begin(115200);
-  Serial.println("DC Motor Test");
+
+  // testing
+  Serial.print("Testing DC Motor...");
 }
 
 void loop() {
-  moveMotor(HIGH, LOW, 2000, 200);  // Forward
-  stopMotor(1000);                  // Stop
-  moveMotor(LOW, HIGH, 2000, 200);  // Backward
-  stopMotor(1000);                  // Stop
-  accelerateMotor(HIGH, LOW, 200, 255, 5, 500); // Accelerate forward
-}
+  // Move the DC motor forward at maximum speed
+  Serial.println("Moving Forward");
+  digitalWrite(motor1Pin1, LOW);
+  digitalWrite(motor1Pin2, HIGH); 
+  delay(2000);
 
-// Function to move motor in a direction
-void moveMotor(int dir1, int dir2, int duration, int speed) {
-  digitalWrite(motor1Pin1, dir1);
-  digitalWrite(motor1Pin2, dir2);
-  ledcWrite(pwmChannel, speed);
-  Serial.println(dir1 ? "Moving Backward" : "Moving Forward");
-  delay(duration);
-}
-
-// Function to stop motor
-void stopMotor(int duration) {
+  // Stop the DC motor
+  Serial.println("Motor stopped");
   digitalWrite(motor1Pin1, LOW);
   digitalWrite(motor1Pin2, LOW);
-  Serial.println("Motor stopped");
-  delay(duration);
-}
+  delay(1000);
 
-// Function to gradually increase speed
-void accelerateMotor(int dir1, int dir2, int startSpeed, int maxSpeed, int step, int delayTime) {
-  digitalWrite(motor1Pin1, dir1);
-  digitalWrite(motor1Pin2, dir2);
-  for (int speed = startSpeed; speed <= maxSpeed; speed += step) {
-    ledcWrite(pwmChannel, speed);
-    Serial.print("Speed: ");
-    Serial.println(speed);
-    delay(delayTime);
+  // Move DC motor backwards at maximum speed
+  Serial.println("Moving Backwards");
+  digitalWrite(motor1Pin1, HIGH);
+  digitalWrite(motor1Pin2, LOW); 
+  delay(2000);
+
+  // Stop the DC motor
+  Serial.println("Motor stopped");
+  digitalWrite(motor1Pin1, LOW);
+  digitalWrite(motor1Pin2, LOW);
+  delay(1000);
+
+  // Move DC motor forward with increasing speed
+  digitalWrite(motor1Pin1, HIGH);
+  digitalWrite(motor1Pin2, LOW);
+  while (dutyCycle <= 255){
+    ledcWrite(enable1Pin, dutyCycle);   
+    Serial.print("Forward with duty cycle: ");
+    Serial.println(dutyCycle);
+    dutyCycle = dutyCycle + 5;
+    delay(500);
   }
+  dutyCycle = 200;
 }
 `;
 </script>
@@ -107,20 +112,6 @@ void accelerateMotor(int dir1, int dir2, int startSpeed, int maxSpeed, int step,
 			ESP 32 Pinout
 		</h1>
 		<img class="md:w-full" src="/assets/img/resources/esp_pinout.png" alt="esppinout" />
-
-		<!-- <h1
-			class="mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
-		>
-			LED Pinout
-		</h1>
-		<img class="scale-90" src="/assets/img/resources/led.png" alt="Ledpinout" /> -->
-
-		<!-- <h1
-			class="mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
-		>
-			BreadBoard Layout
-		</h1>
-		<img class="scale-90" src="/assets/img/resources/breadboard.png" alt="Ledpinout" /> -->
 		<h1
 			class="mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
 		>
