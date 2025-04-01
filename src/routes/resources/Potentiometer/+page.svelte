@@ -4,8 +4,8 @@
 	let code = `
             
 
-#define POTENTIOMETER_PIN  36  // ESP32 pin GPIO36 (ADC0) connected to Potentiometer pin
-#define LED_PIN            21  // ESP32 pin GPIO21 connected to LED's pin
+#define POTENTIOMETER_PIN  15  // ESP32 pin GPIO36 (ADC0) connected to Potentiometer pin
+#define LED_PIN            4  // ESP32 pin GPIO21 connected to LED's pin
 
 // the setup routine runs once when you press reset:
 void setup() {

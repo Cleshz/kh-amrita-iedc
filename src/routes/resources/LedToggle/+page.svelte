@@ -3,8 +3,8 @@
 	import Navbar from '$lib/Navbar.svelte';
 	let code = `
             
-#define BUTTON_PIN  18 // ESP32 pin GPIO18, which connected to button
-#define LED_PIN     21 // ESP32 pin GPIO21, which connected to led
+#define BUTTON_PIN  15 // ESP32 pin GPIO18, which connected to button
+#define LED_PIN     4 // ESP32 pin GPIO21, which connected to led
 
 // variables will change:
 int led_state = LOW;    // the current state of LED
