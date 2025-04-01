@@ -1,60 +1,159 @@
-export let code = `
+export let mac = `
 #include <WiFi.h>
-#include <WebServer.h>
+#include <esp_wifi.h>
 
-#define LED1 26
-#define LED2 27
-
-const char* ssid = "ESP32-AP";
-const char* password = "12345678";
-
-WebServer server(80);
-
-void handleRoot() {
-  String html = "<!DOCTYPE html>\\n";
-  html += "<html>\\n<head>\\n<title>ESP32 LED Control</title>\\n";
-  html += "<script>\\n";
-  html += "function toggleLED(led) {\\n";
-  html += "  fetch('/toggle?led=' + led)\\n";
-  html += "  .then(response => response.text())\\n";
-  html += "  .then(state => document.getElementById(led).innerHTML = state);\\n";
-  html += "}\\n</script>\\n</head>\\n<body>\\n";
-  html += "<h2>ESP32 LED Control</h2>\\n";
-  html += "<button onclick=\\"toggleLED('LED1')\\">Toggle LED 1</button> <span id='LED1'>" + String(digitalRead(LED1)) + "</span><br>\\n";
-  html += "<button onclick=\\"toggleLED('LED2')\\">Toggle LED 2</button> <span id='LED2'>" + String(digitalRead(LED2)) + "</span><br>\\n";
-  html += "</body></html>\\n";
-  server.send(200, "text/html", html);
-}
-
-void handleToggle() {
-  if (server.hasArg("led")) {
-    String led = server.arg("led");
-    if (led == "LED1") {
-      digitalWrite(LED1, !digitalRead(LED1));
-      server.send(200, "text/plain", String(digitalRead(LED1)));
-    } else if (led == "LED2") {
-      digitalWrite(LED2, !digitalRead(LED2));
-      server.send(200, "text/plain", String(digitalRead(LED2)));
-    }
+void readMacAddress(){
+  uint8_t baseMac[6];
+  esp_err_t ret = esp_wifi_get_mac(WIFI_IF_STA, baseMac);
+  if (ret == ESP_OK) {
+    Serial.printf("%02x:%02x:%02x:%02x:%02x:%02x\\n",
+                  baseMac[0], baseMac[1], baseMac[2],
+                  baseMac[3], baseMac[4], baseMac[5]);
+  } else {
+    Serial.println("Failed to read MAC address");
   }
 }
 
-void setup() {
+
+void setup(){
   Serial.begin(115200);
-  pinMode(LED1, OUTPUT);
-  pinMode(LED2, OUTPUT);
 
-  WiFi.softAP(ssid, password);
-  Serial.println("Access Point Started");
-  Serial.print("IP Address: ");
-  Serial.println(WiFi.softAPIP());
+  WiFi.mode(WIFI_STA);
+  WiFi.STA.begin();
 
-  server.on("/", handleRoot);
-  server.on("/toggle", handleToggle);
-  server.begin();
+  Serial.print("[DEFAULT] ESP32 Board MAC Address: ");
+  readMacAddress();
+}
+ 
+void loop(){
+
+}`
+
+export let transmitter = `
+#include <esp_now.h>
+#include <WiFi.h>
+
+//These are needed for MPU
+#include "I2Cdev.h"
+#include "MPU6050_6Axis_MotionApps20.h"
+#if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
+    #include "Wire.h"
+#endif
+
+// MPU control/status vars
+MPU6050 mpu;
+bool dmpReady = false;  // set true if DMP init was successful
+uint8_t devStatus;      // return status after each device operation (0 = success, !0 = error)
+uint8_t fifoBuffer[64]; // FIFO storage buffer
+Quaternion q;           // [w, x, y, z]         quaternion container
+VectorFloat gravity;    // [x, y, z]            gravity vector
+float ypr[3];           // [yaw, pitch, roll]   yaw/pitch/roll container and gravity vector
+
+// RECEIVER MAC Address
+uint8_t receiverMacAddress[] = {0xAC,0x67,0xB2,0x36,0x7F,0x28};  //AC:67:B2:36:7F:28
+
+struct PacketData 
+{
+  byte xAxisValue;
+  byte yAxisValue;
+  byte zAxisValue;  
+};
+PacketData data;
+
+// callback when data is sent
+void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status)
+{
+  //Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Message sent" : "Message failed");
 }
 
-void loop() {
-  server.handleClient();
+void setupMPU()
+{
+  // join I2C bus (I2Cdev library doesn't do this automatically)
+  #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
+      Wire.begin();
+      Wire.setClock(400000); // 400kHz I2C clock. Comment this line if having compilation difficulties
+  #elif I2CDEV_IMPLEMENTATION == I2CDEV_BUILTIN_FASTWIRE
+      Fastwire::setup(400, true);
+  #endif
+
+  mpu.initialize();
+  devStatus = mpu.dmpInitialize();
+  // make sure it worked (returns 0 if so)
+  if (devStatus == 0) 
+  {
+      // Calibration Time: generate offsets and calibrate our MPU6050
+      mpu.CalibrateAccel(6);
+      mpu.CalibrateGyro(6);
+      mpu.setDMPEnabled(true);
+      dmpReady = true;
+  } 
 }
+
+void setup()
+{
+  Serial.begin(115200);
+  WiFi.mode(WIFI_STA);
+  // Init ESP-NOW
+  if (esp_now_init() != ESP_OK) 
+  {
+    Serial.println("Error initializing ESP-NOW");
+    return;
+  }
+  else
+  {
+    Serial.println("Succes: Initialized ESP-NOW");
+  }
+
+  esp_now_register_send_cb(OnDataSent);
+  
+  // Register peer
+  esp_now_peer_info_t peerInfo;
+  memcpy(peerInfo.peer_addr, receiverMacAddress, 6);
+  peerInfo.channel = 0;  
+  peerInfo.encrypt = false;
+  
+  // Add peer        
+  if (esp_now_add_peer(&peerInfo) != ESP_OK)
+  {
+    Serial.println("Failed to add peer");
+    return;
+  }
+  else
+  {
+    Serial.println("Succes: Added peer");
+  }   
+
+  //This is to set up MPU6050 sensor
+  setupMPU();  
+}
+
+void loop() 
+{
+  // if programming failed, don't try to do anything
+  if (!dmpReady) return;
+  // read a packet from FIFO. Get the Latest packet
+  if (mpu.dmpGetCurrentFIFOPacket(fifoBuffer)) 
+  {  
+    mpu.dmpGetQuaternion(&q, fifoBuffer);
+    mpu.dmpGetGravity(&gravity, &q);
+    mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
+
+    int xAxisValue = constrain(ypr[2] * 180/M_PI, -90, 90);
+    int yAxisValue = constrain(ypr[1] * 180/M_PI, -90, 90);
+    int zAxisValue = constrain(ypr[0] * 180/M_PI, -90, 90);    
+    data.xAxisValue = map(xAxisValue, -90, 90, 0, 254); 
+    data.yAxisValue = map(yAxisValue, -90, 90, 0, 254);
+    data.zAxisValue = map(zAxisValue, -90, 90, 0, 254);    
+
+    esp_err_t result = esp_now_send(receiverMacAddress, (uint8_t *) &data, sizeof(data));
+
+    String inputData  = inputData + "values " + xAxisValue + "  " + yAxisValue + "  " + zAxisValue;
+    Serial.println(inputData);
+    delay(50);            
+  }
+}
+`;
+
+export let reciever = `
+
 `;
