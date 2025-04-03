@@ -6,8 +6,8 @@
 
 <body class="h-screen overflow-y-scroll bg-white dark:bg-neutral-900 dark:text-gray-300">
 	<Navbar root="/resources" />
-	<h1 class="text-4xl text-fuchsia-400 font-bold text-center">Under Construction😩💔</h1>
-	<!-- <section class="mx-auto max-w-3xl p-6">
+
+	<section class="mx-auto max-w-3xl p-6">
 		<h1
 			class="mb-6 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
 		>
@@ -53,7 +53,7 @@
 		>
 			Circuit
 		</h1>
-		<img class="scale-75" src="/assets/img/resources/led_esp_server.png" alt="pinout" />
+		<img class="scale-75" src="/assets/img/resources/mq3_esp32.png" alt="pinout" />
 	</section>
 	<section class="mx-auto max-w-4xl p-6">
 		<h1
@@ -73,7 +73,7 @@
 			
 			
 		</div>
-	</section> -->
+	</section>
 </body>
 
 <style>

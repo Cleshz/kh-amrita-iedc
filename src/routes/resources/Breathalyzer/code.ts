@@ -1,60 +1,27 @@
 export let code = `
-#include <WiFi.h>
-#include <WebServer.h>
-
-#define LED1 26
-#define LED2 27
-
-const char* ssid = "ESP32-AP";
-const char* password = "12345678";
-
-WebServer server(80);
-
-void handleRoot() {
-  String html = "<!DOCTYPE html>\\n";
-  html += "<html>\\n<head>\\n<title>ESP32 LED Control</title>\\n";
-  html += "<script>\\n";
-  html += "function toggleLED(led) {\\n";
-  html += "  fetch('/toggle?led=' + led)\\n";
-  html += "  .then(response => response.text())\\n";
-  html += "  .then(state => document.getElementById(led).innerHTML = state);\\n";
-  html += "}\\n</script>\\n</head>\\n<body>\\n";
-  html += "<h2>ESP32 LED Control</h2>\\n";
-  html += "<button onclick=\\"toggleLED('LED1')\\">Toggle LED 1</button> <span id='LED1'>" + String(digitalRead(LED1)) + "</span><br>\\n";
-  html += "<button onclick=\\"toggleLED('LED2')\\">Toggle LED 2</button> <span id='LED2'>" + String(digitalRead(LED2)) + "</span><br>\\n";
-  html += "</body></html>\\n";
-  server.send(200, "text/html", html);
-}
-
-void handleToggle() {
-  if (server.hasArg("led")) {
-    String led = server.arg("led");
-    if (led == "LED1") {
-      digitalWrite(LED1, !digitalRead(LED1));
-      server.send(200, "text/plain", String(digitalRead(LED1)));
-    } else if (led == "LED2") {
-      digitalWrite(LED2, !digitalRead(LED2));
-      server.send(200, "text/plain", String(digitalRead(LED2)));
-    }
-  }
-}
+const int mq3DO = 13; // MQ-3 digital output connected to ESP32 pin D13
+const int buzzerPin = 12; // Buzzer connected to ESP32 pin D12
 
 void setup() {
-  Serial.begin(115200);
-  pinMode(LED1, OUTPUT);
-  pinMode(LED2, OUTPUT);
-
-  WiFi.softAP(ssid, password);
-  Serial.println("Access Point Started");
-  Serial.print("IP Address: ");
-  Serial.println(WiFi.softAPIP());
-
-  server.on("/", handleRoot);
-  server.on("/toggle", handleToggle);
-  server.begin();
+  // Initialize the digital pin as an input for MQ-3 DO
+  pinMode(mq3DO, INPUT);
+  // Initialize the digital pin as an output for the buzzer
+  pinMode(buzzerPin, OUTPUT);
+  // Ensure the buzzer is off initially
+  digitalWrite(buzzerPin, LOW);
 }
 
 void loop() {
-  server.handleClient();
+  // Read the digital output from the MQ-3 sensor
+  int alcoholDetected = digitalRead(mq3DO);
+  // If alcohol is detected, turn on the buzzer
+  if (alcoholDetected == HIGH) {
+    digitalWrite(buzzerPin, HIGH);
+  } else {
+    // Otherwise, turn off the buzzer
+    digitalWrite(buzzerPin, LOW);
+  }
+  // Small delay to avoid rapid toggling
+  delay(100);
 }
 `;
