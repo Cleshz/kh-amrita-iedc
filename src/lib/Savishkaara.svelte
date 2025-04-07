@@ -1,4 +1,6 @@
 <script lang="ts">
+	import RainbowButton from "./components/RainbowButton.svelte";
+
 	export let userTheme: boolean;
 
 </script>
@@ -54,5 +56,6 @@
 			and ideas. The event fosters creativity, innovation, and collaboration, serving as a platform
 			for participants to explore advancements in the tech world.
 		</h1>
+		<div class="flex justify-center mt-10"><RainbowButton/></div>
 	</div>
 </div>
