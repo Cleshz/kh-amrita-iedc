@@ -18,7 +18,7 @@
 			<div>
 				<h2 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white">Overview</h2>
 				<p class="text-base leading-relaxed">
-					Control LEDs/Appliances through a WebServer, and Host its own Access point 
+					Create your own alcohol detecting Breathalyzer
 				</p>
 			</div>
 
@@ -31,7 +31,8 @@
 					<li>ESP32 Development Board (Any variant)</li>
 					<li>Micro USB Cable (Data-enabled)</li>
 					<li>Breadboard</li>
-					<li>LED (5mm preferred)</li>
+					<li>MQ3 Alcohol Sensor</li>
+					<li>Buzzer / Led</li>
 					<li>220Ω Resistor</li>
 					<li>Jumper Wires</li>
 				</ul>
@@ -62,13 +63,7 @@
 			Example Code
 		</h1>
 		<MonacoEditor {code} />
-		<div class="mt-10 border-l-4 border-pink-700 bg-pink-50 p-4 dark:border-red-700 dark:bg-neutral-800">
-			<p class="text-sm">
-				Once the code is uploaded, Connect to the newly generated Wifi Access Point. After
-				connecting, Open any browser of your choice and visit
-				<a href="http://192.168.4.1" target="_blank"><strong class="text-indigo-300 underline">192.168.4.1</strong></a>.
-			</p>
-		</div>
+
 		<div class="mt-32 flex justify-between">
 			
 			
@@ -80,7 +75,5 @@
 	body {
 		@apply transition-colors duration-500;
 	}
-	.nav-link {
-		@apply block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500;
-	}
+
 </style>

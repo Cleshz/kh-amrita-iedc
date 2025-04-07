@@ -18,7 +18,7 @@
 			<div>
 				<h2 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white">Overview</h2>
 				<p class="text-base leading-relaxed">
-					Control LEDs/Appliances through a WebServer, and Host its own Access point 
+					Create a local Weather Station to get the current Temperature and Humidity
 				</p>
 			</div>
 
@@ -31,7 +31,8 @@
 					<li>ESP32 Development Board (Any variant)</li>
 					<li>Micro USB Cable (Data-enabled)</li>
 					<li>Breadboard</li>
-					<li>LED (5mm preferred)</li>
+					<li>DHT22 Humidity and Temperature Sensor</li>
+					<li>OLED display</li>
 					<li>220Ω Resistor</li>
 					<li>Jumper Wires</li>
 				</ul>
@@ -53,7 +54,7 @@
 		>
 			Circuit
 		</h1>
-		<img class="scale-75" src="/assets/img/resources/led_esp_server.png" alt="pinout" />
+		<img class="scale-75" src="/assets/img/resources/dht22_esp.png" alt="pinout" />
 	</section>
 	<section class="mx-auto max-w-4xl p-6">
 		<div class="mt-10 border-l-4 border-pink-700 bg-pink-50 p-4 dark:border-red-700 dark:bg-neutral-800">
@@ -89,7 +90,5 @@
 	body {
 		@apply transition-colors duration-500;
 	}
-	.nav-link {
-		@apply block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent md:dark:hover:text-blue-500;
-	}
+
 </style>
