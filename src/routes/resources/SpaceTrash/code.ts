@@ -326,7 +326,7 @@ void st_SetupPlayer(uint8_t objnr, uint8_t ot);
 char st_itoa_buf[12];
 char *st_itoa(unsigned long v) {
   volatile unsigned char i = 11;
-  st_itoa_buf[11] = '\0';
+  st_itoa_buf[11] = '\\0';
   while (i > 0) {
     i--;
     st_itoa_buf[i] = (v % 10) + '0';

@@ -4,37 +4,46 @@
 	let code = `
             
 
-#define POTENTIOMETER_PIN  3  // ESP32 pin GPIO36 (ADC0) connected to Potentiometer pin
-#define LED_PIN            4  // ESP32 pin GPIO21 connected to LED's pin
+#define LDR_PIN 3
+#define LED_PIN 4
 
-// the setup routine runs once when you press reset:
+int sensorValue = 0;
+int threshold = 3000;   // Adjust after testing
+
+bool currentState = false;
+bool lastState = false;
+bool ledState = false;
+
 void setup() {
-  // initialize serial communication at 9600 bits per second:
-  Serial.begin(9600);
+  Serial.begin(115200);
 
-  // set the ADC attenuation to 11 dB (up to ~3.3V input)
-  analogSetAttenuation(ADC_11db);
-
-  // declare LED pin to be an output:
   pinMode(LED_PIN, OUTPUT);
+  digitalWrite(LED_PIN, LOW);
 }
 
-// the loop routine runs over and over again forever:
 void loop() {
-  // reads the input on analog pin A0 (value between 0 and 4095)
-  int analogValue = analogRead(POTENTIOMETER_PIN);
+  sensorValue = analogRead(LDR_PIN);
+  Serial.println(sensorValue);
 
-  // scales it to brightness (value between 0 and 255)
-  int brightness = map(analogValue, 0, 4095, 0, 255);
+  // Convert analog to LIGHT/DARK state
+  if (sensorValue > threshold) {
+    currentState = true;   // DARK
+  } else {
+    currentState = false;  // LIGHT
+  }
 
-  // sets the brightness LED that connects to  pin 3
-  analogWrite(LED_PIN, brightness);
+  // Detect change
+  if (currentState != lastState) {
 
-  // print out the value
-  Serial.print("Analog value = ");
-  Serial.print(analogValue);
-  Serial.print(" => brightness = ");
-  Serial.println(brightness);
+    Serial.println("Light change detected!");
+
+    // Toggle LED
+    ledState = !ledState;
+    digitalWrite(LED_PIN, ledState);
+
+    lastState = currentState;
+  }
+
   delay(100);
 }`;
 </script>
@@ -90,7 +99,7 @@ void loop() {
 		>
 			Circuit
 		</h1>
-		<img class="scale-75" src="/assets/img/resources/potentiometer_led.png" alt="pinout" />
+		<img class="scale-75" src="/assets/img/resources/emergency.png" alt="pinout" />
 	</section>
 	<section class="mx-auto max-w-4xl p-6">
 		<h1
