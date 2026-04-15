@@ -57,7 +57,7 @@
 				<a href="http://192.168.4.1" target="_blank"><strong class="text-indigo-300 underline">192.168.4.1</strong></a>.
 			</p>
 		</div>
-		<div class="mt-32 flex justify-between">
+		<!-- <div class="mt-32 flex justify-between">
 			<a href="/resources/Potentiometer">
 				<button
 					class="group relative h-14 w-48 rounded-2xl border border-black bg-white text-center text-xl font-semibold text-black dark:bg-slate-700 dark:text-white"
@@ -106,7 +106,7 @@
 					<p class="-ml-3">Next</p>
 				</button>
 			</a>
-		</div>
+		</div> -->
 	</section>
 </body>
 

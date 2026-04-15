@@ -4,7 +4,7 @@
 	let code = `
             
 
-#define POTENTIOMETER_PIN  15  // ESP32 pin GPIO36 (ADC0) connected to Potentiometer pin
+#define POTENTIOMETER_PIN  3  // ESP32 pin GPIO36 (ADC0) connected to Potentiometer pin
 #define LED_PIN            4  // ESP32 pin GPIO21 connected to LED's pin
 
 // the setup routine runs once when you press reset:
@@ -68,7 +68,6 @@ void loop() {
 					<li>Micro USB Cable (Data-enabled)</li>
 					<li>Breadboard</li>
 					<li>LED (5mm preferred)</li>
-					<li>220Ω Resistor</li>
 					<li>Potentiometer</li>
 					<li>Jumper Wires</li>
 				</ul>
@@ -81,21 +80,8 @@ void loop() {
 		>
 			ESP 32 Pinout
 		</h1>
-		<img class="md:w-full" src="/assets/img/resources/esp_pinout.png" alt="esppinout" />
+		<img class="md:w-full scale-75" src="/assets/img/resources/espmini.png" alt="esppinout" />
 
-		<!-- <h1
-			class="mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
-		>
-			LED Pinout
-		</h1>
-		<img class="scale-90" src="/assets/img/resources/led.png" alt="Ledpinout" /> -->
-
-		<!-- <h1
-			class="mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
-		>
-			BreadBoard Layout
-		</h1>
-		<img class="scale-90" src="/assets/img/resources/breadboard.png" alt="Ledpinout" /> -->
 		<h1
 			class="mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
 		>
@@ -142,7 +128,7 @@ void loop() {
 					<p class="translate-x-2">Go Back</p>
 				</button>
 			</a>
-			<a href="/resources/WebServer">
+			<a href="/resources/Automation">
 				<button
 					class="group relative h-14 w-48 rounded-2xl border border-black bg-white text-center text-xl font-semibold text-black dark:bg-slate-700 dark:text-white"
 					type="button"

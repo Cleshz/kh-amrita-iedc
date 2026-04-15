@@ -2,46 +2,55 @@
 	import MonacoEditor from '$lib/MonacoEditor.svelte';
 	import Navbar from '$lib/Navbar.svelte';
 	let code = `
-            
-#define BUTTON_PIN  3
-#define LED_PIN     4
-#define DEBOUNCE_MS 50
+#define LDR_PIN 3
+#define LED_PIN 4
 
-int led_state = LOW;
-int button_state;
-int last_button_state;
-unsigned long last_debounce_time = 0;
-int debounced_state;
+// Thresholds (adjust after testing)
+int thresholdLow = 600;   // LED turns ON below this (dark)
+int thresholdHigh = 600;  // LED turns OFF above this (bright)
+
+// LED state tracker
+bool ledState = false;
+
+// Function to smooth ADC readings
+int readLDR() {
+  int sum = 0;
+  for (int i = 0; i < 10; i++) {
+    sum += analogRead(LDR_PIN);
+    delay(5);
+  }
+  return sum / 10;
+}
 
 void setup() {
-  Serial.begin(9600);
-  pinMode(BUTTON_PIN, INPUT_PULLUP);
+  Serial.begin(115200);
+
   pinMode(LED_PIN, OUTPUT);
-  button_state      = digitalRead(BUTTON_PIN);
-  debounced_state   = button_state;
-  last_button_state = button_state;
+  digitalWrite(LED_PIN, LOW); // start OFF
+
+  delay(1000); // stabilize
 }
 
 void loop() {
-  int reading = digitalRead(BUTTON_PIN);
+  int ldrValue = readLDR();
 
-  if (reading != last_button_state) {
-    last_debounce_time = millis();  // reset timer on any change
+  Serial.print("LDR Value: ");
+  Serial.println(ldrValue);
+
+  // Hysteresis logic
+  if (!ledState && ldrValue < thresholdLow) {
+    ledState = true;
+    digitalWrite(LED_PIN, HIGH);  // turn ON
+    Serial.println("LED ON (Dark)");
+  } 
+  else if (ledState && ldrValue > thresholdHigh) {
+    ledState = false;
+    digitalWrite(LED_PIN, LOW);   // turn OFF
+    Serial.println("LED OFF (Bright)");
   }
 
-  if ((millis() - last_debounce_time) > DEBOUNCE_MS) {
-    if (reading != debounced_state) {
-      debounced_state = reading;
-      if (debounced_state == LOW) {  // LOW = pressed (INPUT_PULLUP)
-        Serial.println("The button is pressed");
-        led_state = !led_state;
-        digitalWrite(LED_PIN, led_state);
-      }
-    }
-  }
-
-  last_button_state = reading;
-}
+  delay(100);
+}            
 `;
 </script>
 
@@ -52,7 +61,7 @@ void loop() {
 		<h1
 			class="mb-6 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
 		>
-			LED Toggle
+			Light Dependent Resistor
 		</h1>
 
 		<div class="space-y-8">
@@ -60,14 +69,8 @@ void loop() {
 			<div>
 				<h2 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white">Overview</h2>
 				<p class="text-base leading-relaxed">
-					Toggle a LED <strong class="text-orange-400">ON</strong> or
-					<strong class="text-indigo-500">OFF</strong> using ESP32 and a Press Button.
+					Make an ESP32-C3 emergency lamp
 				</p>
-				<ul class="list-disc space-y-2 pl-5">
-					<li>If the Button is pressed, Turn on LED</li>
-					<li>If the Button is pressed again, Turn off LED</li>
-					<li>Repeat</li>
-				</ul>
 			</div>
 
 			<!-- Components Required -->
@@ -80,7 +83,8 @@ void loop() {
 					<li>Micro USB Cable (Data-enabled)</li>
 					<li>Breadboard</li>
 					<li>LED (5mm preferred)</li>
-					<li>Push Button</li>
+					<li>LDR sensors</li>
+					<li>10k Ω Resistor</li>
 					<li>Jumper Wires</li>
 				</ul>
 			</div>
@@ -94,26 +98,14 @@ void loop() {
 		</h1>
 		<img class="md:w-full scale-75" src="/assets/img/resources/espmini.png" alt="esppinout" />
 
-		<h1
-			class="mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
-		>
-			LED Pinout
-		</h1>
-		<img class="scale-90" src="/assets/img/resources/led.png" alt="Ledpinout" />
 
-		<h1
-			class="mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
-		>
-			BreadBoard Layout
-		</h1>
-		<img class="scale-90" src="/assets/img/resources/breadboard.png" alt="Ledpinout" />
 
 		<h1
 			class="-mb-10 mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
 		>
 			Circuit
 		</h1>
-		<img class="scale-75" src="/assets/img/resources/switch_esp.png" alt="pinout" />
+		<img class="scale-75" src="/assets/img/resources/emergency.png" alt="pinout" />
 	</section>
 	<section class="mx-auto max-w-4xl p-6">
 		<h1
@@ -123,7 +115,7 @@ void loop() {
 		</h1>
 		<MonacoEditor {code} />
 		<div class="mt-32 flex justify-between">
-			<a href="/resources/LedBlink">
+			<a href="/resources/Automation">
 				<button
 					class="group relative h-14 w-48 rounded-2xl border border-black bg-white text-center text-xl font-semibold text-black dark:bg-slate-700 dark:text-white"
 					type="button"
@@ -147,7 +139,7 @@ void loop() {
 					<p class="translate-x-2">Go Back</p>
 				</button>
 			</a>
-			<a href="/resources/Potentiometer">
+			<a href="/resources/Automation">
 				<button
 					class="group relative h-14 w-48 rounded-2xl border border-black bg-white text-center text-xl font-semibold text-black dark:bg-slate-700 dark:text-white"
 					type="button"

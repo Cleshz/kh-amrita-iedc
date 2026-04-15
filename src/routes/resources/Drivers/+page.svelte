@@ -107,7 +107,7 @@ void loop() {
 			Example Code
 		</h1>
 		<MonacoEditor {code} />
-		<div class="mt-32 flex justify-between">
+		<!-- <div class="mt-32 flex justify-between">
 			<a href="/resources/WebServer">
 				<button
 					class="group relative h-14 w-48 rounded-2xl border border-black bg-white text-center text-xl font-semibold text-black dark:bg-slate-700 dark:text-white"
@@ -156,7 +156,7 @@ void loop() {
 					<p class="-ml-3">Next</p>
 				</button>
 			</a>
-		</div>
+		</div> -->
 	</section>
 </body>
 

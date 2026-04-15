@@ -139,7 +139,6 @@ void loop() {
 					<li>Micro USB Cable (Data-enabled)</li>
 					<li>Breadboard</li>
 					<li>LED (5mm preferred)</li>
-					<li>220Ω Resistor</li>
 					<li>Jumper Wires</li>
 				</ul>
 			</div>
@@ -161,7 +160,7 @@ void loop() {
 		>
 			ESP 32 Pinout
 		</h1>
-		<img class="md:w-full" src="/assets/img/resources/esp_pinout.png" alt="esppinout" />
+		<img class="md:w-full scale-75" src="/assets/img/resources/espmini.png" alt="esppinout" />
 
 		<h1
 			class="mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"

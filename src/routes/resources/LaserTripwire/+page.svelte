@@ -3,46 +3,40 @@
 	import Navbar from '$lib/Navbar.svelte';
 	let code = `
             
-#define BUTTON_PIN  3
-#define LED_PIN     4
-#define DEBOUNCE_MS 50
 
-int led_state = LOW;
-int button_state;
-int last_button_state;
-unsigned long last_debounce_time = 0;
-int debounced_state;
+#define POTENTIOMETER_PIN  3  // ESP32 pin GPIO36 (ADC0) connected to Potentiometer pin
+#define LED_PIN            4  // ESP32 pin GPIO21 connected to LED's pin
 
+// the setup routine runs once when you press reset:
 void setup() {
+  // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
-  pinMode(BUTTON_PIN, INPUT_PULLUP);
+
+  // set the ADC attenuation to 11 dB (up to ~3.3V input)
+  analogSetAttenuation(ADC_11db);
+
+  // declare LED pin to be an output:
   pinMode(LED_PIN, OUTPUT);
-  button_state      = digitalRead(BUTTON_PIN);
-  debounced_state   = button_state;
-  last_button_state = button_state;
 }
 
+// the loop routine runs over and over again forever:
 void loop() {
-  int reading = digitalRead(BUTTON_PIN);
+  // reads the input on analog pin A0 (value between 0 and 4095)
+  int analogValue = analogRead(POTENTIOMETER_PIN);
 
-  if (reading != last_button_state) {
-    last_debounce_time = millis();  // reset timer on any change
-  }
+  // scales it to brightness (value between 0 and 255)
+  int brightness = map(analogValue, 0, 4095, 0, 255);
 
-  if ((millis() - last_debounce_time) > DEBOUNCE_MS) {
-    if (reading != debounced_state) {
-      debounced_state = reading;
-      if (debounced_state == LOW) {  // LOW = pressed (INPUT_PULLUP)
-        Serial.println("The button is pressed");
-        led_state = !led_state;
-        digitalWrite(LED_PIN, led_state);
-      }
-    }
-  }
+  // sets the brightness LED that connects to  pin 3
+  analogWrite(LED_PIN, brightness);
 
-  last_button_state = reading;
-}
-`;
+  // print out the value
+  Serial.print("Analog value = ");
+  Serial.print(analogValue);
+  Serial.print(" => brightness = ");
+  Serial.println(brightness);
+  delay(100);
+}`;
 </script>
 
 <body class="h-screen overflow-y-scroll bg-white dark:bg-neutral-900 dark:text-gray-300">
@@ -52,7 +46,7 @@ void loop() {
 		<h1
 			class="mb-6 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
 		>
-			LED Toggle
+			Laser Tripwire
 		</h1>
 
 		<div class="space-y-8">
@@ -60,14 +54,8 @@ void loop() {
 			<div>
 				<h2 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white">Overview</h2>
 				<p class="text-base leading-relaxed">
-					Toggle a LED <strong class="text-orange-400">ON</strong> or
-					<strong class="text-indigo-500">OFF</strong> using ESP32 and a Press Button.
+					Create a Tripwire system using LDR and a Laser Diode
 				</p>
-				<ul class="list-disc space-y-2 pl-5">
-					<li>If the Button is pressed, Turn on LED</li>
-					<li>If the Button is pressed again, Turn off LED</li>
-					<li>Repeat</li>
-				</ul>
 			</div>
 
 			<!-- Components Required -->
@@ -80,7 +68,8 @@ void loop() {
 					<li>Micro USB Cable (Data-enabled)</li>
 					<li>Breadboard</li>
 					<li>LED (5mm preferred)</li>
-					<li>Push Button</li>
+					<li>Laser Diode</li>
+					<li>LDR</li>
 					<li>Jumper Wires</li>
 				</ul>
 			</div>
@@ -94,26 +83,14 @@ void loop() {
 		</h1>
 		<img class="md:w-full scale-75" src="/assets/img/resources/espmini.png" alt="esppinout" />
 
-		<h1
-			class="mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
-		>
-			LED Pinout
-		</h1>
-		<img class="scale-90" src="/assets/img/resources/led.png" alt="Ledpinout" />
 
-		<h1
-			class="mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
-		>
-			BreadBoard Layout
-		</h1>
-		<img class="scale-90" src="/assets/img/resources/breadboard.png" alt="Ledpinout" />
 
 		<h1
 			class="-mb-10 mt-20 text-center text-4xl font-bold text-pink-700 underline decoration-2 dark:text-red-700"
 		>
 			Circuit
 		</h1>
-		<img class="scale-75" src="/assets/img/resources/switch_esp.png" alt="pinout" />
+		<img class="scale-75" src="/assets/img/resources/potentiometer_led.png" alt="pinout" />
 	</section>
 	<section class="mx-auto max-w-4xl p-6">
 		<h1
@@ -123,7 +100,7 @@ void loop() {
 		</h1>
 		<MonacoEditor {code} />
 		<div class="mt-32 flex justify-between">
-			<a href="/resources/LedBlink">
+			<a href="/resources/LDR">
 				<button
 					class="group relative h-14 w-48 rounded-2xl border border-black bg-white text-center text-xl font-semibold text-black dark:bg-slate-700 dark:text-white"
 					type="button"
@@ -147,30 +124,7 @@ void loop() {
 					<p class="translate-x-2">Go Back</p>
 				</button>
 			</a>
-			<a href="/resources/Potentiometer">
-				<button
-					class="group relative h-14 w-48 rounded-2xl border border-black bg-white text-center text-xl font-semibold text-black dark:bg-slate-700 dark:text-white"
-					type="button"
-				>
-					<div
-						class="absolute right-1 top-[4px] z-10 flex h-12 w-1/4 rotate-180 items-center justify-center rounded-xl bg-green-400 duration-500 group-hover:w-[184px]"
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 1024 1024"
-							height="25px"
-							width="25px"
-						>
-							<path d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z" fill="#000000"></path>
-							<path
-								d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"
-								fill="#000000"
-							></path>
-						</svg>
-					</div>
-					<p class="-ml-3">Next</p>
-				</button>
-			</a>
+
 		</div>
 	</section>
 </body>

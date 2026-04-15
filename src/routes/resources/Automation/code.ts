@@ -2,8 +2,8 @@ export let code = `
 #include <WiFi.h>
 #include <WebServer.h>
 
-#define LED1 26
-#define LED2 27
+#define LED1 4
+#define LED2 3
 
 const char* ssid = "ESP32-AP";
 const char* password = "12345678";
